@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "libft.h"
 
 void *ft_memset (void *s, int c, size_t n)
@@ -8,4 +9,16 @@ void *ft_memset (void *s, int c, size_t n)
 	while (n-- > 0)
 		rtn[n] = c;
 	return (rtn);
+=======
+#include "libft.h"
+
+void *ft_memset (void *s, int c, size_t n)
+{
+	unsigned const char	*rtn;
+
+	rtn = (unsigned char *)s;
+	while (n-- > 0)
+		rtn[n] = c;
+	return (rtn);
+>>>>>>> 155cc0aa8ba72de0e94566f97c3b93bdf3033f7d
 }
