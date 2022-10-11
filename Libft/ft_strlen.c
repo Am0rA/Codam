@@ -14,8 +14,6 @@ int	ft_strlen(char *c)
 {
 	int	ret;
 
-	if (!c)
-		return (0);
 	ret = 0;
 	while (c[ret])
 		ret++;
