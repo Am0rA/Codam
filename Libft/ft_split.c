@@ -12,77 +12,53 @@
 
 #include "libft.h"
 
-int	static	word_count(char const *s, char c)
+int    static    word_count(char const *s, char c)
 {
-	int	i;
-	int	amount;
+    int    rtn;
 
-	i = 0;
-	amount = 0;
-	while (s[i])
-	{
-		if ((s[i + 1] == c || s[i + 1]) && (s[i] != c || s[i]))
-			amount++;
-		i++;
-	}
-	return (amount);
+    rtn = 0;
+    while (*s)
+    {
+        if (*s != c && (*(s + 1) == c || *(s + 1) == '\0'))
+            rtn++;
+        s++;
+    }
+    return (rtn);
 }
 
-int	static	word_len(char const *s, char c)
+char static    *word_fill(char const *s, char c, char *d)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (s[i] != c && s[i])
-		i++;
-	return (i);
+    i = 0;
+    if (!s || !c)
+        return (0);
+    while (*s == c || *s == '\0')
+        s++;
+    while (*s != c && *s != '\0')
+    {
+        i++;
+        s++;
+    }
+    d = ft_substr((s - i), 0, i);
+    return ((char *)s);
 }
 
-void static	word_fill(char *rtn, char const *s, char c)
+char    **ft_split(char const *s, char c)
 {
-	int	i;
+    char  **rtn;
+    char  *bs;
+    int   i;
+    int   w_amount;
 
-	i = 0;
-	rtn = (char *)malloc(sizeof(char) * (word_len(s, c) + 1));
-	while (s[i] != c && s[i])
-	{
-		rtn[i] = s[i];
-		i++;
-	}
-	rtn[i] = '\0';
-}
-
-void static	word_split(char **rtn, char const *s, char c)
-{
-	int	i;
-	int	word;
-
-	i = 0;
-	word = 0;
-	while (s[i])
-	{
-		if (s[i] == c || s[i] == '\0')
-			i++;
-		else
-		{
-			word_fill(rtn[word], &s[i], c);
-			i++;
-			word++;
-		}
-	}
-}
-
-//rtn[word_amount] = 0; // ASK ABOUT THAT
-// ASK ABOUT +1
-char	**ft_split(char const *s, char c)
-{
-	char	**rtn;
-	int		word_amount;
-
-	word_amount = word_count(s, c);
-	if (word_amount == 0)
-		return (NULL);
-	rtn = (char **)malloc(sizeof(char *) * (word_amount + 1));
-	word_split(rtn, s, c);
-	return (rtn);
+    i = 0;
+    bs = (char *)s;
+    w_amount = (word_count(bs, c));
+    rtn = (char **)malloc(sizeof(char*) * (w_amount));
+    while (i < w_amount)
+    {
+        bs = word_fill(bs, c, rtn[i]);
+        i++;
+    }
+    return (rtn);
 }
