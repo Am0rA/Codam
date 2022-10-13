@@ -25,7 +25,7 @@ char	*ft_strncat(char *dest, char *src, int nb)
 	return (dest);
 }
 
-size_t	ft_strlcat(char *restrict dst, const char *restrict src, size_t dstsize)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	dstlen;
 	size_t	srclen;

@@ -17,8 +17,13 @@ CFLAGS=-Wall -Wextra -Werror
 
 RM=rm -f
 
-SRC=ft_*.c
+SRC=ft_atoi.c ft_bzero.c ft_calloc.c ft_split.c \
+	ft_substr.c ft_is*.c ft_mem*.c ft_put*.c \
+	ft_str*.c ft_to*.c
 OBJ=*.o
+
+SRCB= ft_l*.c
+OBJB=$(BONUS:.c=.o) 
 
 all: $(NAME)
 
@@ -29,11 +34,14 @@ $(OBJ): $(SRC)
 	$(CC) $(CFLAGS) -c -I $(SRC)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(OBJB)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all	
 
-.PHONY: clean fclean all re
+bonus : $(OBJB) $(OBJB)
+	ar rcs $(NAME) $(OBJ) $(OBJB)
+
+.PHONY: clean fclean all re bonus
