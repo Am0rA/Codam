@@ -13,11 +13,14 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <string.h>
-# include <unistd.h>
-# include <stddef.h>
-# include <stdio.h>
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;	
+}					t_list;
+
 # include <stdlib.h>
+# include <unistd.h>
 
 int		ft_atoi(char const *str);
 void	ft_bzero(void *s, size_t n);
@@ -53,9 +56,4 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-#endif
-
-#ifndef BONUS
-# define BONUS
-
 #endif
