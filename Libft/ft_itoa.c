@@ -16,59 +16,55 @@ int	static	len_in(int n)
 {
 	int	ret;
 
-	if (n == 0)
-		return (1);
-	if (n == -2147483648)
-		return (11);
-	ret = 0;
+	ret = 1;
 	if (n < 0)
 	{
 		n *= -1;
 		ret++;
 	}
-	if (n >= 10)
+	while (n >= 10)
 	{
-		ret = len_in(n / 10);
-		ret++;
-	}
-	if (n < 10)
-	{
+		n /= 10;
 		ret++;
 	}
 	return (ret);
 }
 
-char static	*ft_return(int n)
+void static	fill(char	*ret, int sign, int n, int len)
 {
-	if (n == -2147483648)
-		return ("-2147483648");
-	else if (n == 0)
-		return ("0");
-	return (NULL);
+	if (sign < 0)
+		ret[0] = '-';
+	ret[len] = '\0';
+	len--;
+	while (len >= 0 && ret[len] != '-')
+	{
+		ret[len] = n % 10 + '0';
+		n /= 10;
+		len--;
+	}
 }
 
 char	*ft_itoa(int n)
 {
-	char		*ret;
-	int			len;
-	int			i;
+	char	*ret;
+	int		sign;
+	int		len;
 
+	if (n == -2147483648)
+	{
+		ret = ft_strdup("-2147483648");
+		return (ret);
+	}
 	len = len_in(n);
 	ret = malloc(sizeof(char) * (len + 1));
-	i = 0;
-	if (ft_return(n) != NULL)
-		return (ft_return(n));
+	if (!ret)
+		return (NULL);
+	sign = 1;
 	if (n < 0)
 	{
-		ret[0] = '-';
-		n *= -1;
+		sign = -1;
+		n *= sign;
 	}
-	while (i < len)
-	{
-		ret[len - 1 - i] = (n % 10) + '0';
-		n /= 10;
-		i++;
-	}
-	ret[i] = '\0';
+	fill(ret, sign, n, len);
 	return (ret);
 }
