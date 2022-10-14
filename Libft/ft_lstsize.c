@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 18:37:11 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/13 18:37:11 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/14 11:34:31 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_lstsize(t_list *lst)
 	int	i;
 
 	i = 0;
-	while(lst)
+	while (lst)
 	{
 		lst = lst->next;
 		i++;

@@ -23,8 +23,11 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	i = 0;
 	len = ft_strlen((char *)s);
 	ret = (char *)malloc(sizeof(char) * (len + 1));
-	while (i++ < len)
+	while (i < len)
+	{
 		ret[i] = f(i, s[i]);
+		i++;
+	}
 	ret[i] = '\0';
 	return (ret);
 }

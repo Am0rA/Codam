@@ -6,7 +6,7 @@
 #    By: itopchu <itopchu@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/10 12:33:37 by itopchu       #+#    #+#                  #
-#    Updated: 2022/10/10 18:56:58 by itopchu       ########   odam.nl          #
+#    Updated: 2022/10/14 13:57:13 by itopchu       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,12 @@ CFLAGS=-Wall -Wextra -Werror
 
 RM=rm -f
 
-SRC=ft_atoi.c ft_bzero.c ft_calloc.c ft_split.c \
-	ft_substr.c ft_is*.c ft_mem*.c ft_put*.c \
-	ft_str*.c ft_to*.c
+SRC=	ft_atoi.c ft_bzero.c ft_calloc.c ft_split.c \
+	ft_substr.c ft_itoa.c ft_is*.c ft_mem*.c \
+	ft_put*.c ft_str*.c ft_to*.c $(SRCB)
 OBJ=*.o
 
-SRCB= ft_l*.c
+SRCB= ft_lst*.c
 OBJB=$(BONUS:.c=.o) 
 
 all: $(NAME)

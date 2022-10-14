@@ -21,9 +21,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	while (*s1 && ft_strchr(set, *s1))
 		s1++;
-	i = ft_strlen(s1);
+	i = ft_strlen((char *)s1);
 	while (i && ft_strchr(set, s1[i]))
 		i--;
-	rtn = ft_substr((char*)s1, 0, i + 1);
+	rtn = ft_substr((char *)s1, 0, i + 1);
 	return (rtn);
 }

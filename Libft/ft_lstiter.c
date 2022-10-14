@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 19:06:16 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/13 19:06:16 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/14 15:10:14 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		return ;
 	while (lst)
 	{
-		f(lst);
+		if (lst->content)
+			f(lst->content);
 		lst = lst->next;
 	}
 }

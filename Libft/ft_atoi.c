@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_atoi(char const *str)
+int	ft_atoi(const char *str)
 {
 	int	i;
 	int	minus;
 	int	out;
 
+	if (!str)
+		return (0);
 	out = 0;
 	i = 0;
 	minus = 1;
