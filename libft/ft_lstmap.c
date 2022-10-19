@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 19:10:19 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/13 19:10:19 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/19 15:52:58 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	}
 	return (new_list);
 }
-//THIS IS A COPYCODE MUST STUDY!!
