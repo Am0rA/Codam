@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	static	word_count(char const *s, char c)
+static int	word_count(char const *s, char c)
 {
 	int	rtn;
 
@@ -26,7 +26,7 @@ int	static	word_count(char const *s, char c)
 	return (rtn);
 }
 
-int	static	word_len(char const *s, char c)
+static int	word_len(char const *s, char c)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int	static	word_len(char const *s, char c)
 	return (i);
 }
 
-int	static	word_fill(char const *s, char c, char **d, size_t w_amount)
+static int	word_fill(char const *s, char c, char **d, size_t w_amount)
 {
 	size_t	i;
 	size_t	word;
@@ -68,7 +68,7 @@ int	static	word_fill(char const *s, char c, char **d, size_t w_amount)
 	return (0);
 }
 
-void static	*ft_free2m(char	**data)
+static void	*ft_free2m(char	**data)
 {
 	int	i;
 
