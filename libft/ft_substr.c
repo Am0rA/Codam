@@ -27,10 +27,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*rtn;
 	size_t	i;
 
+	if (!s)
+		return (NULL);
 	if (start >= (unsigned)ft_strlen(s))
 		return (ft_strdup(""));
 	rtn = malloc(sizeof(char) * (teller(s, start, len) + 1));
-	if (!rtn || !s)
+	if (!rtn)
 		return (NULL);
 	i = 0;
 	while (s[i + start] && i < len)

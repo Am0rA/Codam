@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 19:10:19 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/19 15:52:58 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/22 17:55:10 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*new_element;
 
 	new_list = NULL;
+	if (!lst || !f)
+		return (new_list);
 	while (lst)
 	{
 		new_element = ft_lstnew((*f)(lst->content));

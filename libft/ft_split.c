@@ -12,6 +12,20 @@
 
 #include "libft.h"
 
+static void	ft_free2m(char	**data, size_t word)
+{
+	size_t	i;
+
+	i = 0;
+	while (i <= word)
+	{
+		if (data[i])
+			free(data[i]);
+		i++;
+	}
+	free(data);
+}
+
 static int	word_count(char const *s, char c)
 {
 	int	rtn;
@@ -30,9 +44,9 @@ static int	word_len(char const *s, char c)
 {
 	int	i;
 
-	i = 0;
-	if (!s || !c)
+	if (!s)
 		return (0);
+	i = 0;
 	while (*s == c)
 		s++;
 	while (*s != c && *s)
@@ -60,30 +74,14 @@ static int	word_fill(char const *s, char c, char **d, size_t w_amount)
 		s_sub = word_len(&s[i], c);
 		d[word] = ft_substr(s, i, s_sub);
 		if (d[word] == NULL)
+		{
+			ft_free2m(d, w_amount);
 			return (-1);
+		}
 		word++;
-		while (s[i] != c && i < s_size)
-			i++;
+		i += s_sub;
 	}
 	return (0);
-}
-
-static void	*ft_free2m(char	**data)
-{
-	int	i;
-
-	i = 0;
-	if (!data)
-		return (NULL);
-	while (data[i])
-	{
-		free(data[i]);
-		i++;
-	}
-	free(data);
-	if (!data)
-		return (NULL);
-	return (data);
 }
 
 char	**ft_split(char const *s, char c)
@@ -98,6 +96,6 @@ char	**ft_split(char const *s, char c)
 	if (!rtn)
 		return (NULL);
 	if (word_fill((char *)s, c, rtn, w_amount) == -1)
-		return (ft_free2m(rtn));
+		return (NULL);
 	return (rtn);
 }

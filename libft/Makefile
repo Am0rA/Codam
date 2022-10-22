@@ -6,7 +6,7 @@
 #    By: itopchu <itopchu@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/10 12:33:37 by itopchu       #+#    #+#                  #
-#    Updated: 2022/10/20 19:54:33 by itopchu       ########   odam.nl          #
+#    Updated: 2022/10/22 15:26:59 by itopchu       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,13 @@ HEADER	= libft.h
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-COMPILE	= $(CC) $(CFLAGS)
+COMPILE = $(CC) $(CFLAGS)
 
 RM		= rm -f
+
 AR		= ar
-ARFLAG	= -rcs
-ARCHIVE	= $(AR) $(ARFLAG)
+ARFLAGS	= -rc
+ARCHIVE	= $(AR) $(ARFLAGS)
 
 SRC 	=	ft_atoi.c \
 			ft_bzero.c \
@@ -57,25 +58,33 @@ SRC 	=	ft_atoi.c \
 			ft_putnbr_fd.c \
 			ft_split.c 
 
-SRCB	=	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
+SRCB	=	ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstsize.c \
+			ft_lstlast.c \
+			ft_lstadd_back.c \
+			ft_lstdelone.c \
+			ft_lstclear.c \
+			ft_lstiter.c \
+			ft_lstmap.c
 
-OBJ		=	$(SRC:.c=.o)
-OBJB	=  $(SRCB:.c=.o)
+OBJ		= $(SRC:.c=.o)
+OBJB	= $(SRCB:.c=.o)
 
 ifdef WITH_BONUS
 SRC += $(SRCB)
 endif
 
-all: $(NAME)
-
-$(NAME): $(OBJ)
-	$(ARCHIVE) $(NAME) $^
+all: $(NAME)($(OBJ))
 
 bonus:
 	$(MAKE) WITH_BONUS=1
 
 %.o: %.c $(HEADER)
-	$(COMPILE) -c $< -o $@
+	$(COMPILE) -c $< -o $@ 
+
+$(NAME): $(OBJ)
+	$(ARCHIVE) $(NAME) $<
 
 clean:
 	$(RM) $(OBJ) $(OBJB)
@@ -85,4 +94,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: clean all fclean re bonus
