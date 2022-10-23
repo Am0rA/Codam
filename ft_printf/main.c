@@ -10,27 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libftprintf.a"
 #include <stdio.h>
 
 int	main(void)
 {
-	printf("",);
-	printf("",);
-	printf("",);
-	printf("",);
-	printf("",);
-	printf("",);
-	printf("",);
-	printf("",);
-	printf("",);
-	ft_printf("",);
-	ft_printf("",);
-	ft_printf("",);
-	ft_printf("",);
-	ft_printf("",);
-	ft_printf("",);
-	ft_printf("",);
-	ft_printf("",);
-	ft_printf("",);
+	printf("%c,%s,%p,%d,%i,%u,%x,%X,%%\n",);
+	ft_printf("%c,%s,%p,%d,%i,%u,%x,%X,%%\n",);
 	return (0);
 }
