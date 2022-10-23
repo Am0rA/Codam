@@ -11,28 +11,25 @@
 # **************************************************************************** #
 
 NAME	= libftprintf.a
-
+HEADER	= ft_printf.h
+####################################
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 COMPILE = $(CC) $(CFLAGS)
-
-AR		= ar
-ARFLAGS	= -rc
-ARCHIVE	= $(AR) $(ARFLAGS)
-
 RM		= rm -r
-
+####################################
+AR		= ar
+ARFLAGS	= -rcs
+ARCHIVE	= $(AR) $(ARFLAGS)
+####################################
 SRC 	=	ft_printf.c \
-			ft_parse.c
-SRC_B	= 
+			write.c \
+			hex.c \
+			based_int.c \
+			base_conv.c
 
 OBJ		= $(SRC:.c=.o)
-OBJ_B	= $(SRC_B:.c=.o)
-
-ifdef WITH_BONUS
-SRC += $(SRC_B)
-endif
-
+####################################
 all: $(NAME)
 
 $(NAME): $(OBJ)
@@ -40,9 +37,6 @@ $(NAME): $(OBJ)
 
 $(OBJ): $(SRC)
 	$(COMPILE) -c $<
-
-bonus:
-	$(MAKE) WITH_BONUS=1
 
 clean:
 	$(RM) $(OBJ) $(OBJ_B)
