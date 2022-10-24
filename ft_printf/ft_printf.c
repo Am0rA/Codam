@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/23 01:02:26 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/24 16:07:42 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/24 16:30:54 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,43 +64,4 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(argl);
 	return (ret_val);
-}
-
-#include "ft_printf.h"
-#include <stdio.h>
-#include <limits.h>
-int	main(void)
-{
-	char	*filled;
-	char	test[] = "Hello printf";
-	int		x = 50;
-	int		*ptr = &x;
-	filled = test;
-	char	me[] = "My texts Begins here:\n";
-	char	he[] = "His texts begings here:\n";
-	printf("%s\n", he);
-	printf("%%\n");
-	printf("%c\n", 'c');
-	printf("%s\n", "%s Some String");
-	printf("%d, %d\n", INT_MIN, INT_MAX);
-	printf("%i, %i\n", INT_MIN, INT_MAX);
-	printf("%u, %u\n", 0, UINT_MAX);
-	printf("%p\n", ptr);
-	printf("%p\n", ptr);
-	printf("%x\n", *filled);
-	printf("%X\n", *test);
-	printf("/////////////////////////////////\n");
-	ft_printf("%s\n", me);
-	ft_printf("%%\n");
-	ft_printf("%c\n", 'c');
-	ft_printf("%s\n", "%s Some String");
-	ft_printf("%d, %d\n", INT_MIN, INT_MAX);
-	ft_printf("%i, %i\n", INT_MIN, INT_MAX);
-	ft_printf("%u, %u\n", 0, UINT_MAX);
-	ft_printf("%p\n", ptr);
-	ft_printf("%p\n", ptr);
-	ft_printf("%x\n", *filled);
-	ft_printf("%X\n", *test);
-	ft_printf("/////////////////////////////////\n");
-	return (0);
 }

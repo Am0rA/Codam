@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/23 22:06:13 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/24 15:57:58 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/24 16:30:00 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	write_hex_p(va_list argl)
 	int				len;
 
 	len = 2;
-	n = va_arg(argl, unsigned int);
+	n = va_arg(argl, unsigned long int);
 	if (!n)
-		return (write_str("NULL"));
+		return (write_str("0x0"));
 	write(1, "0x", 2);
-	len += base_conv("01234567890ABCDEF", 16, n);
+	len += base_conv("0123456789abcdef", 16, n);
 	return (len);
 }
 
@@ -33,7 +33,7 @@ int	write_hex_x(va_list argl)
 
 	len = 0;
 	n = va_arg(argl, unsigned int);
-	len += base_conv("01234567890abcdef", 16, n);
+	len += base_conv("0123456789abcdef", 16, n);
 	return (len);
 }
 
@@ -44,6 +44,6 @@ int	write_hex_x_up(va_list argl)
 
 	len = 0;
 	n = va_arg(argl, unsigned int);
-	len += base_conv("01234567890ABCDEF", 16, n);
+	len += base_conv("0123456789ABCDEF", 16, n);
 	return (len);
 }
