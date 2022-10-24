@@ -6,11 +6,15 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/23 22:34:30 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/23 22:34:30 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/24 14:48:14 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	write_zero(unsigned long n);
+char		*buffer_size(int base, unsigned long n);
+static int	write_zero(unsigned long n);
 
 int	base_conv(const char *set, int base, unsigned long n)
 {
@@ -23,7 +27,7 @@ int	base_conv(const char *set, int base, unsigned long n)
 	len = 0;
 	if (write_zero(n))
 		return (1);
-	buffer_size(buffer, base, n);
+	buffer = buffer_size(base, n);
 	if (!buffer)
 		return (0);
 	while (n != 0)
@@ -43,15 +47,16 @@ static int	write_zero(unsigned long n)
 {
 	if (n == 0)
 	{
-		write(1, '0', 1);
+		write_chr('0');
 		return (1);
 	}
 	return (0);
 }
 
-char	*buffer_size(char *buffer,int base, unsigned long n)
+char	*buffer_size(int base, unsigned long n)
 {
-	int	len;
+	int		len;
+	char	*buffer;
 
 	len = 1;
 	while (n != 0)

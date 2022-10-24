@@ -6,7 +6,7 @@
 #    By: itopchu <itopchu@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/23 00:59:22 by itopchu       #+#    #+#                  #
-#    Updated: 2022/10/23 00:59:22 by itopchu       ########   odam.nl          #
+#    Updated: 2022/10/24 14:42:19 by itopchu       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,20 +30,20 @@ SRC 	=	ft_printf.c \
 
 OBJ		= $(SRC:.c=.o)
 ####################################
-all: $(NAME)
+all: $(NAME)($(OBJ))
+
+%.o: %.c $(HEADER)
+	$(COMPILE) -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(ARCHIVE) $(NAME) $<
 
-$(OBJ): $(SRC)
-	$(COMPILE) -c $<
-
 clean:
-	$(RM) $(OBJ) $(OBJ_B)
+	$(RM) $(OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all re fclean clean
+.PHONY: clean all fclean re

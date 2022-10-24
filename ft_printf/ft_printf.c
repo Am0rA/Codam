@@ -6,48 +6,39 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/23 01:02:26 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/23 01:02:26 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/24 16:07:42 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	write_percent()
+int	write_percent(void)
 {
-	write(1, '%', 1);
+	write_chr('%');
 	return (1);
 }
 
-static int	static_in_set(char c)
-{
-	char	*set;
-
-	set = "cspdiuxX%";
-	while (*set++)
-		if (*set == c)
-			return (1);
-	return (0);
-}
-
-static size_t	imp_func(const char *format, va_list argl)
+static size_t	imp_func(char format, va_list argl)
 {
 	size_t	len;
 
 	len = 0;
-	if (*format == 'c')
+	if (format == 'c')
 		len += write_c(argl);
-	else if (*format == 's')
+	else if (format == 's')
 		len += write_s(argl);
-	else if (*format == 'p')
+	else if (format == 'p')
 		len += write_hex_p(argl);
-	else if (*format == 'i' || *format == 'd')
+	else if (format == 'i' || format == 'd')
 		len += write_int(argl);
-	else if (*format == 'u')
+	else if (format == 'u')
 		len += write_unint(argl);
-	else if (*format == 'x' || *format == 'X')
+	else if (format == 'x')
 		len += write_hex_x(argl);
-	else if (*format == '%')
-		len += write_percent(argl);
+	else if (format == 'X')
+		len += write_hex_x_up(argl);
+	else if (format == '%')
+		len += write_percent();
 	return (len);
 }
 
@@ -55,15 +46,61 @@ int	ft_printf(const char *format, ...)
 {
 	size_t	ret_val;
 	va_list	argl;
+	int		i;
 
+	i = 0;
 	ret_val = 0;
 	va_start(argl, format);
-	while (*format++)
-		if (*(++format) == '%')
-			if (static_in_set(format))
-				ret_val += imp_func(format, argl);
+	while (format[i])
+	{
+		if (format[i] == '%')
+		{
+			ret_val += imp_func((char)format[i + 1], argl);
+			i++;
+		}
 		else
-			ret_val += char_put(format);
+			ret_val += write(1, &format[i], 1);
+		i++;
+	}
 	va_end(argl);
 	return (ret_val);
+}
+
+#include "ft_printf.h"
+#include <stdio.h>
+#include <limits.h>
+int	main(void)
+{
+	char	*filled;
+	char	test[] = "Hello printf";
+	int		x = 50;
+	int		*ptr = &x;
+	filled = test;
+	char	me[] = "My texts Begins here:\n";
+	char	he[] = "His texts begings here:\n";
+	printf("%s\n", he);
+	printf("%%\n");
+	printf("%c\n", 'c');
+	printf("%s\n", "%s Some String");
+	printf("%d, %d\n", INT_MIN, INT_MAX);
+	printf("%i, %i\n", INT_MIN, INT_MAX);
+	printf("%u, %u\n", 0, UINT_MAX);
+	printf("%p\n", ptr);
+	printf("%p\n", ptr);
+	printf("%x\n", *filled);
+	printf("%X\n", *test);
+	printf("/////////////////////////////////\n");
+	ft_printf("%s\n", me);
+	ft_printf("%%\n");
+	ft_printf("%c\n", 'c');
+	ft_printf("%s\n", "%s Some String");
+	ft_printf("%d, %d\n", INT_MIN, INT_MAX);
+	ft_printf("%i, %i\n", INT_MIN, INT_MAX);
+	ft_printf("%u, %u\n", 0, UINT_MAX);
+	ft_printf("%p\n", ptr);
+	ft_printf("%p\n", ptr);
+	ft_printf("%x\n", *filled);
+	ft_printf("%X\n", *test);
+	ft_printf("/////////////////////////////////\n");
+	return (0);
 }

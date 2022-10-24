@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/23 22:17:15 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/23 22:17:15 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/24 15:58:11 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	write_c(va_list argl)
 	char	c;
 	int		i;
 
-	c = va_arg(argl, char);
+	c = va_arg(argl, int);
 	i = write_chr(c);
 	return (i);
 }
@@ -30,7 +30,7 @@ int	write_s(va_list argl)
 	i = 0;
 	s = va_arg(argl, char *);
 	if (!s)
-		return (write_s("NULL"));
+		return (write_str("NULL"));
 	i = write_str(s);
 	return (i);
 }
