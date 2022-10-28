@@ -6,70 +6,59 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 21:24:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/25 22:37:42 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/10/28 04:56:49 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-int	ft_strichr(const char *s, int c)
+static int	st_strchri(char *m, char c)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] != (char)c)
-		if (!s[i++])
+	while (m[i])
+		if (m[i++] == c)
 			return (i);
-	return (i);
+	return (-1);
 }
 
-char	*ft_str_shorten(const char *s, int x)
+static char	*buffer_loop(char *r, char *b, char *m, int fd)
 {
-	char	*test
+	int	check;
 
-	test malloc;
-
-	while (i < x)
-		test = s
-
-	return test;
-}
-
-int	buffer_loop(char *str, char *buffer, int fd)
-{
-	int		read_v;
-	int		i;
-	int		check;
-
-	i = 0;
-	read_v = read(fd, buffer, BUFFER_SIZE);
-	check = ft_strichr(buffer, '\n');
-	if (check <= read_v)
-		buffer = (ft_str_shorten(buffer, check);
-	str = ft_strjoin(str, buffer);
-	if (read_v <= check && check == BUFFER_SIZE)
-		read_v += buffer_loop(str, buffer, fd);
-	if (check < read_v)
-		read_v = check;
-	return (read_v);
+	check = st_strchri(m, '\n');
+	if (check == -1)
+	{
+		read(fd, b, BUFFER_SIZE);
+		m = ft_strjoin(m, b);
+		r = buffer_loop(r, b, m, fd);
+	}
+	else
+	{
+		r = ft_substr(m, 0, check);
+		m = ft_substr(&m[check + 1], 0, ft_strlen (m));
+	}
+	return (r);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*str;
-	char	buffer[BUFFER_SIZE + 1];
-	int		read_v;
+	char		*rtn;
+	char		buffer[BUFFER_SIZE + 1];
+	static char	*mem;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	rtn = NULL;
+	if (!mem)
+	{
+		mem = ft_strdup("");
+		if (!mem)
+			return (NULL);
+	}
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	read_v = read(fd, buffer, BUFFER_SIZE);
-	read_v += buffer_loop(buffer, buffer, fd);
-	str = malloc(sizeof(char) * (read_v + 1));
-	if (!str)
-		return (NULL);
-	buffer_loop(str, buffer, fd);
-	return (str);
+	rtn = buffer_loop(rtn, buffer, mem, fd);
+	return (rtn);
 }
 
 #include <fcntl.h>
@@ -77,14 +66,18 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int		fd;
-	char	*line;
 
 	fd = open("test.txt", O_RDONLY);
-	printf("\nTHIS IS IN MAIN\n");
-	get_next_line(fd);
-	//printf("test line 1: %s\n", get_next_line(fd));
-	// printf("test line 2: %s\n", get_next_line(fd));
-	// printf("test line 3: %s\n", get_next_line(fd));
-	// printf("test line 4: %s\n", get_next_line(fd));
+	printf("\033[0;31mtest line 1: %s\033[0;31m", get_next_line(fd));
+	printf("\033[0;32mtest line 2: %s\033[0;32m", get_next_line(fd));
+	printf("\033[0;33mtest line 3: %s\033[0;33m", get_next_line(fd));
+	printf("\033[0;34mtest line 4: %s\033[0;34m", get_next_line(fd));
+	printf("\033[0;35mtest line 5: %s\033[0;35m", get_next_line(fd));
+	printf("\033[0;36mtest line 6: %s\033[0;36m", get_next_line(fd));
+	printf("\033[0;37mtest line 7: %s\033[0;37m", get_next_line(fd));
+	printf("\033[0;38mtest line 8: %s\033[0;38m", get_next_line(fd));
+	printf("\033[0;39mtest line 9: %s\033[0;39m", get_next_line(fd));
+	//printf("\033[0;39mtest line 10: %s\033[0;39m", get_next_line(fd));
+	close(fd);
 	return (0);
 }
