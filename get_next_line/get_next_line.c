@@ -77,6 +77,7 @@ int	main(void)
 	printf("\033[0;37mtest line 7: %s\033[0;37m", get_next_line(fd));
 	printf("\033[0;38mtest line 8: %s\033[0;38m", get_next_line(fd));
 	printf("\033[0;39mtest line 9: %s\033[0;39m", get_next_line(fd));
+	printf("\033[0;40mtest line 9: %s\033[0;40m", get_next_line(fd));
 	//printf("\033[0;39mtest line 10: %s\033[0;39m", get_next_line(fd));
 	close(fd);
 	return (0);
