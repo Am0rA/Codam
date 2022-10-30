@@ -25,19 +25,21 @@ static int	st_strchri(char *m, char c)
 
 static char	*buffer_loop(char *r, char *b, char *m, int fd)
 {
-	int	check;
+	int		check;
+	size_t	bytes_read;
 
 	check = st_strchri(m, '\n');
 	if (check == -1)
 	{
-		read(fd, b, BUFFER_SIZE);
+		bytes_read = read(fd, b, BUFFER_SIZE);
+		b[bytes_read] = '\0';
 		m = ft_strjoin(m, b);
 		r = buffer_loop(r, b, m, fd);
 	}
 	else
 	{
 		r = ft_substr(m, 0, check);
-		m = ft_substr(&m[check + 1], 0, ft_strlen (m));
+		m = ft_substr(m, check, ft_strlen(m));
 	}
 	return (r);
 }
@@ -75,10 +77,6 @@ int	main(void)
 	printf("\033[0;35mtest line 5: %s\033[0;35m", get_next_line(fd));
 	printf("\033[0;36mtest line 6: %s\033[0;36m", get_next_line(fd));
 	printf("\033[0;37mtest line 7: %s\033[0;37m", get_next_line(fd));
-	printf("\033[0;38mtest line 8: %s\033[0;38m", get_next_line(fd));
-	printf("\033[0;39mtest line 9: %s\033[0;39m", get_next_line(fd));
-	printf("\033[0;40mtest line 9: %s\033[0;40m", get_next_line(fd));
-	//printf("\033[0;39mtest line 10: %s\033[0;39m", get_next_line(fd));
 	close(fd);
 	return (0);
 }

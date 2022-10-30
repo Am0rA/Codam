@@ -18,7 +18,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 20
+#  define BUFFER_SIZE 19
 # endif
 //get_next_line_utils
 size_t	ft_strlen(const char *c);
