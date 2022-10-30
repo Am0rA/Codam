@@ -16,7 +16,7 @@ HEADER	= ft_printf.h
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 COMPILE = $(CC) $(CFLAGS)
-RM		= rm -r
+RM		= rm -rf
 ####################################
 AR		= ar
 ARFLAGS	= -rcs

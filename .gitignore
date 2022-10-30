@@ -1,1 +1,3 @@
 memdetect.sh
+*.exe
+*.gch
