@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 21:26:31 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/28 04:47:02 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/11/01 13:30:37 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 19
+#  define BUFFER_SIZE 7
 # endif
 //get_next_line_utils
 size_t	ft_strlen(const char *c);

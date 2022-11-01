@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_substr.c                                        :+:    :+:            */
+/*   ft_memcmp.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/08 17:09:59 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/08 17:09:59 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:01:22 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:01:22 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*rtn;
-	size_t	i;
+	unsigned char		*b1;
+	unsigned char		*b2;
 
-	if (!s)
-		return (NULL);
-	if (start >= (unsigned)ft_strlen(s))
-		return (ft_strdup(""));
-	i = 0;
-	while (s[start + i] && i < len)
-		i++;
-	rtn = malloc(sizeof(char) * (i + 1));
-	if (!rtn)
-		return (NULL);
-	i = 0;
-	while (s[i + start] && i < len)
+	b1 = (unsigned char *)s1;
+	b2 = (unsigned char *)s2;
+	if (b1 == NULL && b2 == NULL)
+		return (0);
+	while (n)
 	{
-		rtn[i] = s[i + start];
-		i++;
+		if (*b1 != *b2)
+			return (*b1 - *b2);
+		b1++;
+		b2++;
+		n--;
 	}
-	rtn[i] = '\0';
-	return (rtn);
+	return (0);
 }

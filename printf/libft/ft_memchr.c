@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_substr.c                                        :+:    :+:            */
+/*   ft_memchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/08 17:09:59 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/08 17:09:59 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:01:06 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:01:06 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*rtn;
-	size_t	i;
+	size_t			counter;
+	unsigned char	*buffer;
+	unsigned char	cr;
+	void			*rtn;
 
-	if (!s)
-		return (NULL);
-	if (start >= (unsigned)ft_strlen(s))
-		return (ft_strdup(""));
-	i = 0;
-	while (s[start + i] && i < len)
-		i++;
-	rtn = malloc(sizeof(char) * (i + 1));
-	if (!rtn)
-		return (NULL);
-	i = 0;
-	while (s[i + start] && i < len)
+	buffer = (unsigned char *)s;
+	cr = (unsigned char)c;
+	rtn = (void *)s;
+	counter = 0;
+	while (counter < n)
 	{
-		rtn[i] = s[i + start];
-		i++;
+		if (buffer[counter] == cr)
+			return (rtn += counter);
+		counter++;
 	}
-	rtn[i] = '\0';
-	return (rtn);
+	return (NULL);
 }
