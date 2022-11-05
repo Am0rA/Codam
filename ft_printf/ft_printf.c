@@ -39,6 +39,8 @@ static size_t	imp_func(char format, va_list argl)
 		len += write_hex_x_up(argl);
 	else if (format == '%')
 		len += write_percent();
+	else
+		len += write(1, &format, 1);
 	return (len);
 }
 
@@ -53,7 +55,7 @@ int	ft_printf(const char *format, ...)
 	va_start(argl, format);
 	while (format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && format[i + 1] != '\0')
 		{
 			ret_val += imp_func((char)format[i + 1], argl);
 			i++;
