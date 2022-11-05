@@ -12,67 +12,77 @@
 
 #include "get_next_line.h"
 
-static int	st_strchri(char *m, int c, size_t bytes)
+static char *waste(char **m, size_t line_size)
 {
-	size_t	i;
+	size_t	remainder_size;
+	char	*remainder_str;
 
-	i = bytes - BUFFER_SIZE;
-	if (bytes - BUFFER_SIZE <= 0)
-		i = 0;
-	while (m[i])
-		if (m[i++] == (char)c)
-			return (i);
-	return (-1);
+	remainder_size = ft_strlen(*m, '\0') - line_size;
+	if (remainder_size == 0 || !ft_strchr(*m, '\n'))
+	{
+		free(*m);
+		return (NULL);
+	}
+	remainder_str = ft_strdup(*m + line_size);
+	free(*m);
+	return (remainder_str);
 }
 
-static char	*buffer_loop(char *b, char **m, int fd, size_t bytes)
+static char	*read_line(int fd, char **m)
 {
-	int		check;
-	char	*r;
-	size_t	bytes_read;
-	char	*tmp;
+	char	buffer[BUFFER_SIZE + 1];
+	ssize_t	bytes_read;
 
-	check = st_strchri(*m, '\n', bytes);
-	if (check == -1)
+	bytes_read = 1;
+	while (bytes_read)
 	{
-		bytes_read = read(fd, b, BUFFER_SIZE);
-		if (bytes_read == 0)
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0)
 			return (NULL);
-		b[bytes_read] = '\0';
-		tmp = ft_strjoin(*m, b);
-		free(*m);
-		*m = tmp;
-		r = buffer_loop(b, m, fd, bytes + bytes_read);
+		buffer[bytes_read] = '\0';
+		if (bytes_read == 0)
+			break ;
+		if (!*m)
+			*m = ft_strdup(buffer);
+		else
+			*m = ft_strjoin(*m, buffer);
+		if (ft_strchr(*m, '\n'))
+			return (*m);
 	}
+	return (*m);
+}
+
+static char	*give_line(char **m)
+{
+	ssize_t	line_size;
+	char	*line;
+
+	if (ft_strchr(*m, '\n'))
+		line_size = ft_strlen(*m, '\n') + 1;
 	else
+		line_size = ft_strlen(*m, '\0');
+	line = malloc(line_size + 1);
+	if (line == NULL)
 	{
-		r = ft_substr(*m, 0, check);
-		tmp = ft_substr(*m + check, 0, bytes);
 		free(*m);
-		*m = tmp;
+		return (line);
 	}
-	return (r);
+	ft_strlcpy(line, *m, line_size + 1);
+	*m = waste(m, line_size);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*rtn;
-	char		buffer[BUFFER_SIZE + 1];
 	static char	*mem;
-	size_t		bytes;
+	char		*rtn;
 
-	if (!mem)
-	{
-		mem = malloc(BUFFER_SIZE + 1);
-		if (!mem)
-			return (NULL);
-		bytes = read(fd, mem, BUFFER_SIZE);
-		mem[bytes] = '\0';
-	}
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	rtn = buffer_loop(buffer, &mem, fd, bytes);
-	free(mem);
+	mem = read_line(fd, &mem);
+	if (!mem)
+		return (NULL);
+	rtn = give_line(&mem);
 	return (rtn);
 }
 
@@ -81,17 +91,16 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int		fd;
+	char	*line;
 
 	fd = open("test.txt", O_RDONLY);
-	printf("\033[0;31mtest line 1: %s\033[0;31m", get_next_line(fd));
-	printf("\033[0;32mtest line 2: %s\033[0;32m", get_next_line(fd));
-	printf("\033[0;33mtest line 3: %s\033[0;33m", get_next_line(fd));
-	printf("\033[0;34mtest line 4: %s\033[0;34m", get_next_line(fd));
-	printf("\033[0;35mtest line 5: %s\033[0;35m", get_next_line(fd));
-	printf("\033[0;36mtest line 6: %s\033[0;36m", get_next_line(fd));
-	printf("\033[0;37mtest line 7: %s\033[0;37m", get_next_line(fd));
-	printf("\033[0;38mtest line 8: %s\033[0;38m", get_next_line(fd));
-	printf("\033[0;39mtest line 9: %s\033[0;39m", get_next_line(fd));
+
+	for(int i = 0; i < 15; i++)
+	{
+		line = get_next_line(fd);
+		printf("%s", line);
+		free(line);
+	}
 	close(fd);
 	return (0);
 }

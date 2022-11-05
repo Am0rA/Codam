@@ -20,12 +20,13 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 7
 # endif
+
 //get_next_line_utils
-size_t	ft_strlen(const char *c);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *c, int var);
+size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(char const *s1);
-void	*ft_memcpy(void *dst, void const *src, size_t n);
 //get_next_line
 char	*get_next_line(int fd);
 
