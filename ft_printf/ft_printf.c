@@ -39,8 +39,6 @@ static size_t	imp_func(char format, va_list argl)
 		len += write_hex_x_up(argl);
 	else if (format == '%')
 		len += write_percent();
-	else
-		len += write(1, &format, 1);
 	return (len);
 }
 

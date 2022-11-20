@@ -14,15 +14,12 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == '\0' && (char)c == '\0')
-		return ((char *)s);
-	return (NULL);
+	if (s == NULL)
+		return (NULL);
+	while (*s != (char)c)
+		if (!*s++)
+			return (0);
+	return ((char *)s);
 }
 
 size_t	ft_strlen(const char *c, int var)
@@ -44,7 +41,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 	s_len = ft_strlen(src, '\0');
 	if (dstsize == 0)
 		return (s_len);
-	while (i < dstsize -1 && src[i] != 0)
+	while (i < dstsize - 1 && src[i] != 0)
 	{
 		dest[i] = src[i];
 		i++;
@@ -65,11 +62,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s2_len = ft_strlen((char *)s2, '\0');
 	rtn = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!rtn)
-	{
-		free((char *)s1);
-		return (NULL);
-	}
-	ft_strlcpy(rtn, s1, s1_len +1);
+		return (free((char *)s1), NULL);
+	ft_strlcpy(rtn, s1, s1_len + 1);
 	ft_strlcpy(rtn + s1_len, s2, s2_len + 1);
 	free((char *)s1);
 	return (rtn);
@@ -83,7 +77,7 @@ char	*ft_strdup(char const *s1)
 	s1_len = ft_strlen(s1, '\0');
 	rtn = (char *)malloc(s1_len + 1);
 	if (!rtn)
-		return (rtn);
+		return (NULL);
 	ft_strlcpy(rtn, s1, s1_len + 1);
 	return (rtn);
 }
