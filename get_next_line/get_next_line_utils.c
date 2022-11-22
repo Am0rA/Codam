@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 19:24:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/11/01 22:38:42 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/11/22 17:52:13 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	if (s == NULL)
+	if (!s)
 		return (NULL);
 	while (*s != (char)c)
 		if (!*s++)
