@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/23 01:02:26 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/11/01 17:03:39 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/11/22 19:59:37 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static size_t	imp_func(char format, va_list argl)
 	else if (format == 'X')
 		len += write_hex_x_up(argl);
 	else if (format == '%')
-		len += write_percent();
+		len += write(1, &format, 1);
 	return (len);
 }
 
@@ -53,7 +53,7 @@ int	ft_printf(const char *format, ...)
 	va_start(argl, format);
 	while (format[i])
 	{
-		if (format[i] == '%' && format[i + 1])
+		if (format[i] == '%')
 			ret_val += imp_func((char)format[i++ + 1], argl);
 		else
 			ret_val += write(1, &format[i], 1);
