@@ -22,9 +22,11 @@ AR		= ar
 ARFLAGS	= -rcs
 ARCHIVE	= $(AR) $(ARFLAGS)
 ####################################
-SRC 	=	push_swap.c \
+SRC 	=	actions.c \
+			check.c \
 			error.c \
-			actions.c
+			push_swap.c \
+			table.c
 OBJ		= $(SRC:.c=.o)
 OBJL	= libft/*.o
 ####################################

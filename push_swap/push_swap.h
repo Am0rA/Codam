@@ -13,6 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include "libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 
@@ -39,11 +40,34 @@ void	ft_r(t_table *t, int i);
 void	ft_rr(t_table *t, int i);
 
 /*==================================*/
+/*				CHECK				*/
+/*==================================*/
+
+int	check_input(t_table *t, char **v);
+int	is_sorted(t_table *t);
+
+/*==================================*/
 /*				ERROR				*/
 /*==================================*/
 
 void	free_list(t_list *l);
 void	free_table(t_table *t);
 void	write_error(t_table *t);
+
+/*==================================*/
+/*				PUSH_SWAP			*/
+/*==================================*/
+
+t_table	*get_table(int size, char **args);
+int	push_swap(int c, char **v);
+int	main(int argc, char **argv);
+
+/*==================================*/
+/*				TABLE				*/
+/*==================================*/
+
+int	fill_list(t_table *t, char **args, int size);
+t_table	*t_init(unsigned int size);
+
 
 #endif

@@ -43,23 +43,23 @@ void	ft_s(t_table *t, int i)
 	}
 }
 
-void	ft_rr(t_table *t, int i)
+void	ft_p(t_table *t, int i)
 {
-	if (i % 3 == 1 && t->a)
+	long int	tmp;
+
+	if (i % 3 == 2 && t->b)
 	{
-		t->a = t->a->prev;
-		write(1, "rra\n", 4);
+		tmp = t->a->num;
+		list_del_top(t->a);
+		list_add_top(t->b, tmp);
+		write(1, "pb\n", 3);
 	}
-	else if (i % 3 == 2 && t->b)
+	else if (i % 3 == 1 && t->a)
 	{
-		t->b = t->b->prev;
-		write(1, "rrb\n", 4);
-	}
-	else if (i % 3 == 0 && t->b && t->a)
-	{
-		t->a = t->a->prev;
-		t->b = t->b->prev;
-		write(1, "rrr\n", 4);
+		tmp = t->b->num;
+		list_del_top(t->b);
+		list_add_top(t->a, tmp);
+		write(1, "pa\n", 3);
 	}
 }
 
@@ -83,22 +83,22 @@ void	ft_r(t_table *t, int i)
 	}
 }
 
-void	ft_p(t_table *t, int i)
+void	ft_rr(t_table *t, int i)
 {
-	long int	tmp;
-
-	if (i % 3 == 2 && t->b)
+	if (i % 3 == 1 && t->a)
 	{
-		tmp = t->a->num;
-		list_del_top(t->a);
-		list_add_top(t->b, tmp);
-		write(1, "pb\n", 3);
+		t->a = t->a->prev;
+		write(1, "rra\n", 4);
 	}
-	else if (i % 3 == 1 && t->a)
+	else if (i % 3 == 2 && t->b)
 	{
-		tmp = t->b->num;
-		list_del_top(t->b);
-		list_add_top(t->a, tmp);
-		write(1, "pa\n", 3);
+		t->b = t->b->prev;
+		write(1, "rrb\n", 4);
+	}
+	else if (i % 3 == 0 && t->b && t->a)
+	{
+		t->a = t->a->prev;
+		t->b = t->b->prev;
+		write(1, "rrr\n", 4);
 	}
 }

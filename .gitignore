@@ -3,3 +3,4 @@ memdetect.sh
 *.gch
 *.txt
 *.dylib
+.vscode
