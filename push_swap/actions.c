@@ -6,13 +6,13 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/27 22:26:55 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/11/27 22:26:55 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/12/02 21:19:12 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_swap(t_list *l)
+static void	ft_swap(t_int_l *l)
 {
 	int	buf;
 
@@ -25,12 +25,12 @@ static void	ft_swap(t_list *l)
 
 void	ft_s(t_table *t, int i)
 {
-	if(i % 3 == 1)
+	if (i % 3 == 1)
 	{
 		ft_swap(t->a);
 		write(1, "sa\n", 3);
 	}
-	else if(i % 3 == 2)
+	else if (i % 3 == 2)
 	{
 		ft_swap(t->b);
 		write(1, "sb\n", 3);
@@ -50,15 +50,17 @@ void	ft_p(t_table *t, int i)
 	if (i % 3 == 2 && t->b)
 	{
 		tmp = t->a->num;
-		list_del_top(t->a);
-		list_add_top(t->b, tmp);
+		list_del_front(t->a);
+		if (!list_add_front(t->b, tmp))
+			write_error(t);
 		write(1, "pb\n", 3);
 	}
 	else if (i % 3 == 1 && t->a)
 	{
 		tmp = t->b->num;
-		list_del_top(t->b);
-		list_add_top(t->a, tmp);
+		list_del_front(t->b);
+		if (!list_add_front(t->a, tmp))
+			write_error(t);
 		write(1, "pa\n", 3);
 	}
 }

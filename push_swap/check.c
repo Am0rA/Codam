@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/30 16:35:03 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/11/30 16:35:03 by itopchu       ########   odam.nl         */
+/*   Updated: 2022/12/02 21:34:28 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 int	is_sorted(t_table *t)
 {
-	t_list *tmp;
+	t_int_l	*tmp;
+
+	if (!t)
+		return (0);
+	tmp = malloc(sizeof(t_int_l));
 	if (!tmp)
 		return (0);
 	while (t->a->num)
@@ -49,8 +53,8 @@ static void	check_singularity(t_table *t, char **v)
 static void	check_ints(t_table *t, char **v)
 {
 	long int	tmp;
-	int	i;
-	int	j;
+	int			i;
+	int			j;
 
 	i = 1;
 	while (v[i])

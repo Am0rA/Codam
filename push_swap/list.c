@@ -1,48 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   list.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/28 00:39:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 16:02:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/02 21:14:28 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/12/02 21:21:20 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_list(t_int_l *l)
+void	list_del_front(t_int_l *l)
 {
-	t_int_l	*child;
-	t_int_l	*parent;
-
-	if (!l)
-		return ;
-	parent = l;
-	while (l != NULL)
-	{
-		child = l;
-		l = l->next;
-		free(child);
-	}
-	free(parent);
+	l->prev->next = l->next;
+	l->next->prev = l->prev;
+	free(l);
 }
 
-void	free_table(t_table *t)
+int	list_add_front(t_int_l *l, long int var)
 {
-	if (!t)
-		return ;
-	if (t->a)
-		free_list(t->a);
-	if (t->b)
-		free_list(t->b);
-	free(t);
-}
+	t_int_l	*new;
 
-void	write_error(t_table *t)
-{
-	write(2, "Error\n", 6);
-	free_table(t);
-	exit(-1);
+	new = malloc(sizeof(t_init));
+	if (!new)
+		return (0);
+	l->prev->next = new;
+	l->next->prev = new;
+	new->num = var;
+	return (1);
 }
