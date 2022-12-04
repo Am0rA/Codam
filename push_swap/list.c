@@ -12,22 +12,46 @@
 
 #include "push_swap.h"
 
-void	list_del_front(t_int_l *l)
+void	list_add_front(t_circular **l, t_circular *new)
 {
-	l->prev->next = l->next;
-	l->next->prev = l->prev;
-	free(l);
+
+	new->next = *l;
+	new->prev = (*l)->prev;
+	(*l)->prev->next = new;
+	(*l)->prev = new;
+	new->head = 1;
+	(*l)->head = 0;
 }
 
-int	list_add_front(t_int_l *l, long int var)
+int	list_del_front(t_circular *l)
 {
-	t_int_l	*new;
-
-	new = malloc(sizeof(t_init));
-	if (!new)
-		return (0);
-	l->prev->next = new;
-	l->next->prev = new;
-	new->num = var;
+	l = list_last(l)->next;
+	l->next->head = 1;
+	l->prev->next = l->next->prev;
+	l->next->prev = l->prev->next;
+	free(l);
 	return (1);
+}
+
+t_circular	*list_new(int content)
+{
+	t_circular	*new;
+
+	new = malloc(sizeof(t_circular));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->head = 0;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
+}
+
+t_circular	*list_last(t_circular *l)
+{
+	while (l->next->head == 0)
+	{
+		l = l->next;
+	}
+	return (l);
 }

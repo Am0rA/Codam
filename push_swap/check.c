@@ -14,24 +14,18 @@
 
 int	is_sorted(t_table *t)
 {
-	t_int_l	*tmp;
-
-	if (!t)
+	if (!t || !t->a)
 		return (0);
-	tmp = malloc(sizeof(t_int_l));
-	if (!tmp)
-		return (0);
-	while (t->a->num)
+	while (t->a->next->head != 1)
 	{
-		tmp = t->a;
-		if (tmp->num > t->a->num)
+		if (t->a->next->content > t->a->content)
 			return (0);
 		t->a = t->a->next;
 	}
 	return (1);
 }
 
-static void	check_singularity(t_table *t, char **v)
+static void	check_singularity(char **v)
 {
 	int	i;
 	int	j;
@@ -43,14 +37,14 @@ static void	check_singularity(t_table *t, char **v)
 		while (v[j])
 		{
 			if (ft_atoi(v[i]) == ft_atoi(v[j]))
-				write_error(t);
+				write_error(NULL);
 			j++;
 		}
 		i++;
 	}
 }
 
-static void	check_ints(t_table *t, char **v)
+static void	check_ints(char **v)
 {
 	long int	tmp;
 	int			i;
@@ -63,15 +57,15 @@ static void	check_ints(t_table *t, char **v)
 		while (v[j])
 		{
 			tmp = ft_atoi(v[j]);
-			if (tmp < -2147483648 || tmp > 2147483647)
-				write_error(t);
+			if (tmp <= -2147483648 || tmp >= 2147483647)
+				write_error(NULL);
 			j++;
 		}
 		i++;
 	}
 }
 
-static void	check_chars(t_table *t, char **v)
+static void	check_chars(char **v)
 {
 	int	i;
 	int	j;
@@ -83,17 +77,16 @@ static void	check_chars(t_table *t, char **v)
 		while (v[i][j])
 		{
 			if (!ft_isdigit(v[i][j]))
-				write_error(t);
+				write_error(NULL);
 			j++;
 		}
 		i++;
 	}
 }
 
-int	check_input(t_table *t, char **v)
+void	check_input(char **v)
 {
-	check_chars(t, v);
-	check_ints(t, v);
-	check_singularity(t, v);
-	return (is_sorted(t));
+	check_chars(v);
+	check_ints(v);
+	check_singularity(v);
 }

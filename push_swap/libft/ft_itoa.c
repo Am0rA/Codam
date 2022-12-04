@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	static	len_in(int long n)
+static int	len_in(int long n)
 {
 	int	ret;
 
@@ -25,7 +25,7 @@ int	static	len_in(int long n)
 	return (ret);
 }
 
-void static	fill(char	*ret, int sign, int long n, int len)
+static void	fill(char	*ret, int sign, int long n, int len)
 {
 	if (sign < 0)
 		ret[0] = '-';

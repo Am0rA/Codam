@@ -25,6 +25,7 @@ ARCHIVE	= $(AR) $(ARFLAGS)
 SRC 	=	actions.c \
 			check.c \
 			error.c \
+			list.c \
 			push_swap.c \
 			table.c
 OBJ		= $(SRC:.c=.o)

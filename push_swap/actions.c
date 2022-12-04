@@ -12,15 +12,15 @@
 
 #include "push_swap.h"
 
-static void	ft_swap(t_int_l *l)
+static void	ft_swap(t_circular *l)
 {
 	int	buf;
 
 	if (l == NULL || l->next == NULL)
 		return ;
-	buf = l->num;
-	l->num = l->next->num;
-	l->next->num = buf;
+	buf = l->content;
+	l->content = l->next->content;
+	l->next->content = buf;
 }
 
 void	ft_s(t_table *t, int i)
@@ -45,22 +45,16 @@ void	ft_s(t_table *t, int i)
 
 void	ft_p(t_table *t, int i)
 {
-	long int	tmp;
-
 	if (i % 3 == 2 && t->b)
 	{
-		tmp = t->a->num;
+		list_add_front(&t->b, t->a);
 		list_del_front(t->a);
-		if (!list_add_front(t->b, tmp))
-			write_error(t);
 		write(1, "pb\n", 3);
 	}
 	else if (i % 3 == 1 && t->a)
 	{
-		tmp = t->b->num;
+		list_add_front(&t->a, t->b);
 		list_del_front(t->b);
-		if (!list_add_front(t->a, tmp))
-			write_error(t);
 		write(1, "pa\n", 3);
 	}
 }

@@ -14,16 +14,11 @@
 
 t_table	*get_table(int size, char **args)
 {
-	int		check;
 	t_table	*table;
 
-	if (size < 1)
-		exit(0);
-	check = 1;
-	table = t_init();
+	table = t_init(size, args);
 	if (!table)
 		return (NULL);
-	fill_list(table, args, size);
 	return (table);
 }
 
@@ -36,25 +31,19 @@ void	push_swap(int c, char **v)
 		exit(-1);
 	// if (!is_sorted(table))
 	// 	sort(table);
-	while (c)
-	{
-		printf("%ld", table->a->num);
-		table->a = table->a->next;
-		c--;
-	}
 	free_table(table);
 }
 
 int	main(int argc, char **argv)
 {
-	int	check;
-
-	check = check_input(NULL, argv);
+	if (argc < 1)
+		exit(-1);
+	check_input(argv);
 	if (argc <= 2)
 		return (0);
-	// else if (argc < 6 && check == 1)
+	// else if (argc < 6)
 	// 	solve_simple(argc, argv);
-	else if (argc >= 6 && check == 1)
+	else if (argc >= 6)
 		push_swap(argc, argv);
 	return (0);
 }

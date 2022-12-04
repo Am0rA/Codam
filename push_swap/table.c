@@ -12,52 +12,42 @@
 
 #include "push_swap.h"
 
-int	t_int_l_init(t_int_l *l, char **args, int size)
+t_circular	*l_init(char **args, int size)
 {
-	t_int_l	*first;
-	int		i;
+	t_circular	*new;
+	t_circular	*l;
+	int			i;
 
 	i = 0;
-	first = l;
-	while (i < size - 1)
+	if (args[i])
+		l = list_new(ft_atoi(args[i]));
+	l->head = 1;
+	printf("index: %i %d\n", i, l->content);
+	i++;
+	while (i < size && l)
 	{
-		if (args)
-			l->num = ft_atoi(args[i]);
-		if (i != size - 2)
-			l->next = malloc(sizeof(t_int_l));
-		if (l->next == NULL)
-			return (0);
-		l->prev = l;
+		if (args[size])
+			new = list_new(ft_atoi(args[size]));
+		if (!new)
+			return (NULL);
+		printf("index: %i %d\n", i, l->content);
+		list_add_front(&l, new);
 		i++;
 	}
-	l->next = first;
-	return (1);
+	l->prev = list_last(l);
+	l = list_last(l)->next;
+	return (l);
 }
 
-void	fill_list(t_table *t, char **args, int size)
+t_table	*t_init(int size, char **args)
 {
-	int	check;
+	t_table	*t;
 
-	check = t_int_l_init(t->a, args, size);
-	if (!check)
+	t = malloc(sizeof(t_table));
+	if (!t)
 		write_error(t);
-	check = t_int_l_init(t->b, NULL, size);
-	if (!check)
+	t->a = l_init(args, size);
+	if (!(t->a))
 		write_error(t);
-}
-
-t_table	*t_init(void)
-{
-	t_table	*table;
-
-	table = malloc(sizeof(*table));
-	if (!table)
-		return (NULL);
-	table->a = malloc(sizeof(*(table->a)));
-	if (!(table->a))
-		return (free_table(table), NULL);
-	table->b = malloc(sizeof(*(table->b)));
-	if (!(table->b))
-		return (free_table(table), NULL);
-	return (table);
+	return (t);
 }

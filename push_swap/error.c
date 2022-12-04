@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-void	free_list(t_int_l *l)
+void	free_list(t_circular *l)
 {
-	t_int_l	*child;
-	t_int_l	*parent;
+	t_circular	*child;
+	t_circular	*parent;
 
 	if (!l)
 		return ;
@@ -42,7 +42,7 @@ void	free_table(t_table *t)
 
 void	write_error(t_table *t)
 {
-	write(2, "Error\n", 6);
+	write(1, "Error\n", 6);
 	free_table(t);
 	exit(-1);
 }
