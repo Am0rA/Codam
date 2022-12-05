@@ -57,10 +57,18 @@ void		free_table(t_table *t);
 void		write_error(t_table *t);
 
 /*==================================*/
+/*			LIST_ACTIONS			*/
+/*==================================*/
+
+t_circular	*find_beginning(t_circular *l);
+void		insert_beginning(t_circular *l, t_circular *new);
+int			insert_back(t_circular *l, t_circular *new);
+t_circular	*new_node(int value);
+
+/*==================================*/
 /*				PUSH_SWAP			*/
 /*==================================*/
 
-t_table		*get_table(int size, char **args);
 void		push_swap(int c, char **v);
 int			main(int argc, char **argv);
 
@@ -68,17 +76,6 @@ int			main(int argc, char **argv);
 /*				TABLE				*/
 /*==================================*/
 
-void		fill_list(t_table *t, char **args, int size);
-t_table		*t_init(int size, char **args);
-t_circular	*l_init(char **args, int size);
-
-/*==================================*/
-/*				LIST				*/
-/*==================================*/
-
-void		list_add_front(t_circular **l, t_circular *new);
-int			list_del_front(t_circular *l);
-t_circular	*list_new(int content);
-t_circular	*list_last(t_circular *l);
+int			t_init(t_table *t, int size, char **argv);
 
 #endif

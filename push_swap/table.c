@@ -12,42 +12,25 @@
 
 #include "push_swap.h"
 
-t_circular	*l_init(char **args, int size)
+int t_init(t_table *t, int size, char **argv)
 {
-	t_circular	*new;
-	t_circular	*l;
-	int			i;
+	int	i;
 
 	i = 0;
-	if (args[i])
-		l = list_new(ft_atoi(args[i]));
-	l->head = 1;
-	printf("index: %i %d\n", i, l->content);
-	i++;
-	while (i < size && l)
-	{
-		if (args[size])
-			new = list_new(ft_atoi(args[size]));
-		if (!new)
-			return (NULL);
-		printf("index: %i %d\n", i, l->content);
-		list_add_front(&l, new);
-		i++;
-	}
-	l->prev = list_last(l);
-	l = list_last(l)->next;
-	return (l);
-}
-
-t_table	*t_init(int size, char **args)
-{
-	t_table	*t;
-
-	t = malloc(sizeof(t_table));
+	t = (t_table *)malloc(sizeof(t_table));
 	if (!t)
-		write_error(t);
-	t->a = l_init(args, size);
+		return (0);
+	t->a = new_node(ft_atoi(argv[i]));
 	if (!(t->a))
-		write_error(t);
-	return (t);
+		return (0);
+	t->a->head = 1;
+	t->a->next = t->a;
+	t->a->prev = t->a;
+	while (++i <= size)
+	{
+		if (!insert_back(t->a, new_node(ft_atoi(argv[i]))))
+			return (0);
+		t->a = t->a->next;
+	}
+	return (1);
 }

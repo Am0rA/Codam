@@ -12,38 +12,28 @@
 
 #include "push_swap.h"
 
-t_table	*get_table(int size, char **args)
-{
-	t_table	*table;
-
-	table = t_init(size, args);
-	if (!table)
-		return (NULL);
-	return (table);
-}
-
 void	push_swap(int c, char **v)
 {
 	t_table	*table;
 
-	table = get_table(c - 1, &v[1]);
-	if (!table)
-		exit(-1);
-	// if (!is_sorted(table))
+	table = NULL;
+	if (!t_init(table, c, v))
+		write_error(table);
+	// if (!is_sorted(table->a))
 	// 	sort(table);
 	free_table(table);
 }
 
 int	main(int argc, char **argv)
 {
-	if (argc < 1)
-		exit(-1);
-	check_input(argv);
-	if (argc <= 2)
+	argc--;
+	if (argc <= 1)
 		return (0);
-	// else if (argc < 6)
+	check_input(argv);
+
+	//if (argc < 7)
 	// 	solve_simple(argc, argv);
-	else if (argc >= 6)
-		push_swap(argc, argv);
+	//else if (argc >= 5)
+		push_swap(argc, &argv[1]);
 	return (0);
 }
