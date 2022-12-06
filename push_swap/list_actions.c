@@ -15,36 +15,57 @@
 t_circular *find_beginning(t_circular *l)
 {
 	while (l->head != 1)
-	{
 		l = l->next;
-	}
 	return (l);
 }
 
-void	insert_beginning(t_circular *l, t_circular *new)
+int	insert_beginning(t_circular **l, t_circular *new)
 {
-	t_circular	*anchor;
-
-	anchor = find_beginning(l);
-	new->head = 1;
-	new->next = anchor;
-	new->prev = anchor->prev;
-	anchor->prev->next = new;
-	anchor->prev = new;
-	anchor->head = 0;
-}
-
-int	insert_back(t_circular *l, t_circular *new)
-{
-	t_circular	*anchor;
+	t_circular	*tmp;
 
 	if (!new)
 		return (0);
-	anchor = find_beginning(l);
-	new->next = anchor;
-	new->prev = anchor->prev;
-	anchor->prev->next = new;
-	anchor->prev = new;
+	if (!*l)
+	{
+		new->head = 1;
+		new->next = new;
+		new->prev = new;
+		*l = new;
+		return (1);
+	}
+    tmp = *l;
+    while(tmp->next != *l)
+        tmp = tmp->next;
+    tmp->next = new;
+    new->prev=tmp;
+	tmp->head = 0;
+	new->head = 1;
+    (*l)->prev = new;
+	new->next = *l;
+	return (1);
+}
+
+int	insert_back(t_circular **l, t_circular *new)
+{
+	t_circular	*tmp;
+
+	if (!new)
+		return (0);
+	if (!*l)
+	{
+		new->head = 1;
+		new->next = new;
+		new->prev = new;
+		*l = new;
+		return (1);
+	}
+    tmp = *l;
+    while(tmp->next != *l)
+        tmp = tmp->next;
+    tmp->next = new;
+    new->prev=tmp;
+    (*l)->prev = new;
+	new->next = *l;
 	return (1);
 }
 

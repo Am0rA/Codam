@@ -23,14 +23,15 @@ int t_init(t_table *t, int size, char **argv)
 	t->a = new_node(ft_atoi(argv[i]));
 	if (!(t->a))
 		return (0);
+	i++;
 	t->a->head = 1;
 	t->a->next = t->a;
 	t->a->prev = t->a;
-	while (++i <= size)
+	while (i <= size)
 	{
-		if (!insert_back(t->a, new_node(ft_atoi(argv[i]))))
+		if (!insert_back(&(t->a), new_node(ft_atoi(argv[i]))))
 			return (0);
-		t->a = t->a->next;
+		i++;
 	}
 	return (1);
 }

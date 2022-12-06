@@ -61,8 +61,8 @@ void		write_error(t_table *t);
 /*==================================*/
 
 t_circular	*find_beginning(t_circular *l);
-void		insert_beginning(t_circular *l, t_circular *new);
-int			insert_back(t_circular *l, t_circular *new);
+int			insert_beginning(t_circular **l, t_circular *new);
+int			insert_back(t_circular **l, t_circular *new);
 t_circular	*new_node(int value);
 
 /*==================================*/

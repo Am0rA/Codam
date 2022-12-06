@@ -47,13 +47,13 @@ void	ft_p(t_table *t, int i)
 {
 	if (i % 3 == 2 && t->b)
 	{
-		insert_beginning(t->b, t->a);
+		insert_beginning(&(t->b), t->a);
 		//list_del_front(t->a);
 		write(1, "pb\n", 3);
 	}
 	else if (i % 3 == 1 && t->a)
 	{
-		insert_beginning(t->a, t->b);
+		insert_beginning(&(t->a), t->b);
 		//list_del_front(t->b);
 		write(1, "pa\n", 3);
 	}
