@@ -18,7 +18,7 @@ int	is_sorted(t_table *t)
 		return (0);
 	while (t->a->next->head != 1)
 	{
-		if (t->a->next->content > t->a->content)
+		if (t->a->next->content < t->a->content)
 			return (0);
 		t->a = t->a->next;
 	}

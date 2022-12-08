@@ -12,33 +12,33 @@
 
 #include "push_swap.h"
 
-static void	ft_swap(t_circular *l)
+static void	ft_swap(t_circular *obj1, t_circular *obj2)
 {
 	int	buf;
 
-	if (l == NULL || l->next == NULL)
+	if (!obj1 || !obj2)
 		return ;
-	buf = l->content;
-	l->content = l->next->content;
-	l->next->content = buf;
+	buf = obj1->content;
+	obj1->content = obj2->content;
+	obj2->content = buf;
 }
 
 void	ft_s(t_table *t, int i)
 {
 	if (i % 3 == 1)
 	{
-		ft_swap(t->a);
+		ft_swap(t->a, t->a->next);
 		write(1, "sa\n", 3);
 	}
 	else if (i % 3 == 2)
 	{
-		ft_swap(t->b);
+		ft_swap(t->b, t->b->next);
 		write(1, "sb\n", 3);
 	}
 	else
 	{
-		ft_swap(t->a);
-		ft_swap(t->b);
+		ft_swap(t->a, t->a->next);
+		ft_swap(t->b, t->b->next);
 		write(1, "ss\n", 3);
 	}
 }
@@ -63,18 +63,22 @@ void	ft_r(t_table *t, int i)
 {
 	if (i % 3 == 1 && t->a)
 	{
-		t->a = t->a->next;
+		t->a->prev->head = 1;
+		t->a->head = 0;
 		write(1, "ra\n", 3);
 	}
 	else if (i % 3 == 2 && t->b)
 	{
-		t->b = t->b->next;
+		t->b->prev->head = 1;
+		t->b->head = 0;
 		write(1, "rb\n", 3);
 	}
 	else if (i % 3 == 0 && t->b && t->a)
 	{
-		t->a = t->a->next;
-		t->b = t->b->next;
+		t->a->prev->head = 1;
+		t->a->head = 0;
+		t->b->prev->head = 1;
+		t->b->head = 0;
 		write(1, "rr\n", 3);
 	}
 }
@@ -83,18 +87,24 @@ void	ft_rr(t_table *t, int i)
 {
 	if (i % 3 == 1 && t->a)
 	{
-		t->a = t->a->prev;
-		write(1, "rra\n", 4);
+		t->a->next->head = 1;
+		t->a->head = 0;
+		write(1, "rra\n", 3);
 	}
 	else if (i % 3 == 2 && t->b)
 	{
-		t->b = t->b->prev;
-		write(1, "rrb\n", 4);
+		t->b->next->head = 1;
+		t->b->head = 0;
+		write(1, "rrb\n", 3);
 	}
 	else if (i % 3 == 0 && t->b && t->a)
 	{
-		t->a = t->a->prev;
-		t->b = t->b->prev;
-		write(1, "rrr\n", 4);
+		t->a->next->head = 1;
+		t->a->head = 0;
+		t->b->next->head = 1;
+		t->b->head = 0;
+		write(1, "rrr\n", 3);
 	}
+	t->a = find_beginning(t->a);
+	t->b = find_beginning(t->b);
 }

@@ -52,7 +52,7 @@ int			is_sorted(t_table *t);
 /*				ERROR				*/
 /*==================================*/
 
-void		free_list(t_circular *l);
+void		free_list(t_circular **l);
 void		free_table(t_table *t);
 void		write_error(t_table *t);
 
@@ -69,13 +69,19 @@ t_circular	*new_node(int value);
 /*				PUSH_SWAP			*/
 /*==================================*/
 
-void		push_swap(int c, char **v);
+void		push_swap(t_table *t, int argc);
 int			main(int argc, char **argv);
 
 /*==================================*/
 /*				TABLE				*/
 /*==================================*/
 
-int			t_init(t_table *t, int size, char **argv);
+t_table		*t_init(t_table *t, int size, char **argv);
+
+/*==================================*/
+/*			SOLVE_SMALL				*/
+/*==================================*/
+
+void	sort_small(t_table *t);
 
 #endif

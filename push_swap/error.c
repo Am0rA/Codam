@@ -12,21 +12,19 @@
 
 #include "push_swap.h"
 
-void	free_list(t_circular *l)
+void	free_list(t_circular **l)
 {
 	t_circular	*child;
-	t_circular	*parent;
 
-	if (!l)
+	if (!*l)
 		return ;
-	parent = l;
-	while (l != NULL)
+	while (*l)
 	{
-		child = l;
-		l = l->next;
+		child = (*l)->next;
 		free(child);
+		*l = child;
 	}
-	free(parent);
+	*l = NULL;
 }
 
 void	free_table(t_table *t)
@@ -34,9 +32,9 @@ void	free_table(t_table *t)
 	if (!t)
 		return ;
 	if (t->a)
-		free_list(t->a);
+		free_list(&(t->a));
 	if (t->b)
-		free_list(t->b);
+		free_list(&(t->b));
 	free(t);
 }
 

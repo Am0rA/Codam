@@ -19,6 +19,25 @@ t_circular *find_beginning(t_circular *l)
 	return (l);
 }
 
+void	remove_node(t_circular **l)
+{
+	t_circular *tmp;
+
+	if ((*l)->next == *l)
+	{
+		free(*l);
+		*l = NULL;
+	}
+	else
+	{
+		tmp = (*l)->next;
+		((*l)->prev)->next = (*l)->next;
+		tmp->prev = (*l)->prev;
+		free(*l);
+		*l = tmp;
+	}
+}
+
 int	insert_beginning(t_circular **l, t_circular *new)
 {
 	t_circular	*tmp;
@@ -33,39 +52,35 @@ int	insert_beginning(t_circular **l, t_circular *new)
 		*l = new;
 		return (1);
 	}
-    tmp = *l;
-    while(tmp->next != *l)
-        tmp = tmp->next;
-    tmp->next = new;
-    new->prev=tmp;
-	tmp->head = 0;
-	new->head = 1;
-    (*l)->prev = new;
+    tmp = (*l)->prev;
 	new->next = *l;
+	new->prev = tmp;
+	tmp->next = new;
+	(*l)->prev = new;
+	new->head = 1;
+	(*l)->head = 0;
+	*l = new;
 	return (1);
 }
 
 int	insert_back(t_circular **l, t_circular *new)
 {
-	t_circular	*tmp;
-
-	if (!new)
+	t_circular *tmp;
+	if (!l || !new)
 		return (0);
-	if (!*l)
+	if (*l == NULL)
 	{
-		new->head = 1;
 		new->next = new;
 		new->prev = new;
+		new->head = 1;
 		*l = new;
 		return (1);
 	}
-    tmp = *l;
-    while(tmp->next != *l)
-        tmp = tmp->next;
-    tmp->next = new;
-    new->prev=tmp;
-    (*l)->prev = new;
+	tmp  = (*l)->prev;
 	new->next = *l;
+	(*l)->prev = new;
+	new->prev = tmp;
+	tmp->next = new;
 	return (1);
 }
 
@@ -77,5 +92,7 @@ t_circular	*new_node(int value)
        return (NULL);
     new->content = value;
 	new->head = 0;
+	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }

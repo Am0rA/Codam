@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strdup.c                                        :+:    :+:            */
+/*   solve_small.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/08 17:03:45 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/10/08 17:03:45 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/08 16:47:24 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/12/08 16:47:24 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-char	*ft_strdup(char const *s1)
+void	sort_small(t_table *t)
 {
-	char	*rtn;
+	if (t->a->content > t->a->next->content
+		&& t->a->content < t->a->next->next->content)
+		ft_s(t, 'a');
 
-	rtn = malloc(ft_strlen(s1) + 1);
-	if (!rtn)
-		return (NULL);
-	rtn = ft_memcpy(rtn, s1, ft_strlen(s1) + 1);
-	return (rtn);
 }
