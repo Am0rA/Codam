@@ -1,5 +1,6 @@
 memdetect.sh
 *.exe
+*.out
 *.gch
 *.txt
 *.dylib
