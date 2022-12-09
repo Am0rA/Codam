@@ -12,99 +12,77 @@
 
 #include "push_swap.h"
 
-static void	ft_swap(t_circular *obj1, t_circular *obj2)
-{
-	int	buf;
 
-	if (!obj1 || !obj2)
-		return ;
-	buf = obj1->content;
-	obj1->content = obj2->content;
-	obj2->content = buf;
+int	ft_s(t_circular **l)
+{
+	int	tmp;
+
+	if (!*l || !(*l)->next)
+		return (0);
+	tmp = (*l)->content;
+	(*l)->content = ((*l)->next)->content;
+	((*l)->next)->content = tmp;
+	return (1);
 }
 
-void	ft_s(t_table *t, int i)
+int	ft_r(t_circular **l)
 {
-	if (i % 3 == 1)
-	{
-		ft_swap(t->a, t->a->next);
-		write(1, "sa\n", 3);
-	}
-	else if (i % 3 == 2)
-	{
-		ft_swap(t->b, t->b->next);
-		write(1, "sb\n", 3);
-	}
-	else
-	{
-		ft_swap(t->a, t->a->next);
-		ft_swap(t->b, t->b->next);
-		write(1, "ss\n", 3);
-	}
+	t_circular *tmp;
+
+	if (!*l)
+		return (0);
+	tmp = (*l)->prev;
+	(*l)->head = 0;
+	tmp->head = 1;
+	*l = tmp;
+	return (1);
 }
 
-void	ft_p(t_table *t, int i)
+int	ft_rr(t_circular **l)
 {
-	if (i % 3 == 2 && t->b)
-	{
-		insert_beginning(&(t->b), t->a);
-		//list_del_front(t->a);
-		write(1, "pb\n", 3);
-	}
-	else if (i % 3 == 1 && t->a)
-	{
-		insert_beginning(&(t->a), t->b);
-		//list_del_front(t->b);
-		write(1, "pa\n", 3);
-	}
+	t_circular *tmp;
+
+	if (!*l)
+		return (0);
+	tmp = (*l)->next;
+	(*l)->head = 0;
+	tmp->head = 1;
+	*l = tmp;
+	return (1);
 }
 
-void	ft_r(t_table *t, int i)
+int	ft_p(t_circular **dst, t_circular **src)
 {
-	if (i % 3 == 1 && t->a)
-	{
-		t->a->prev->head = 1;
-		t->a->head = 0;
-		write(1, "ra\n", 3);
-	}
-	else if (i % 3 == 2 && t->b)
-	{
-		t->b->prev->head = 1;
-		t->b->head = 0;
-		write(1, "rb\n", 3);
-	}
-	else if (i % 3 == 0 && t->b && t->a)
-	{
-		t->a->prev->head = 1;
-		t->a->head = 0;
-		t->b->prev->head = 1;
-		t->b->head = 0;
-		write(1, "rr\n", 3);
-	}
+	t_circular *tmp;
+
+	if (!*src)
+		return (0);
+	tmp = *src;
+	insert_beginning(dst, *src);
+	(*src)->next->head = 1;
+	remove_node(src);
+	free(tmp);
+	return (1);
 }
 
-void	ft_rr(t_table *t, int i)
+int apply_double(t_circular **a, t_circular **b, int type)
 {
-	if (i % 3 == 1 && t->a)
+	if (!*a || !*b)
+		return (0);
+	if (type == 1)
 	{
-		t->a->next->head = 1;
-		t->a->head = 0;
-		write(1, "rra\n", 3);
+		ft_s(a);
+		ft_s(b);
 	}
-	else if (i % 3 == 2 && t->b)
+	else if (type == 2)
 	{
-		t->b->next->head = 1;
-		t->b->head = 0;
-		write(1, "rrb\n", 3);
+		ft_r(a);
+		ft_r(b);
 	}
-	else if (i % 3 == 0 && t->b && t->a)
+	else if (type == 3)
 	{
-		t->a->next->head = 1;
-		t->a->head = 0;
-		t->b->next->head = 1;
-		t->b->head = 0;
-		write(1, "rrr\n", 3);
+		ft_rr(a);
+		ft_rr(b);
 	}
-	t->a = find_beginning(t->a);
-	t->b = find_beginning(t->b);
+	return (1);
 }

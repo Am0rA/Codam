@@ -36,17 +36,18 @@ typedef struct s_table
 /*				ACTIONS				*/
 /*==================================*/
 
-void		ft_s(t_table *t, int i);
-void		ft_p(t_table *t, int i);
-void		ft_r(t_table *t, int i);
-void		ft_rr(t_table *t, int i);
+int			ft_s(t_circular **l);
+int			ft_r(t_circular **l);
+int			ft_rr(t_circular **l);
+int			ft_p(t_circular **dst, t_circular **src);
+int 		apply_double(t_circular **a, t_circular **b, int type);
 
 /*==================================*/
 /*				CHECK				*/
 /*==================================*/
 
-void		check_input(char **v);
 int			is_sorted(t_table *t);
+void		check_input(char **v);
 
 /*==================================*/
 /*				ERROR				*/
@@ -61,6 +62,7 @@ void		write_error(t_table *t);
 /*==================================*/
 
 t_circular	*find_beginning(t_circular *l);
+void		remove_node(t_circular **l);
 int			insert_beginning(t_circular **l, t_circular *new);
 int			insert_back(t_circular **l, t_circular *new);
 t_circular	*new_node(int value);

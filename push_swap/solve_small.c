@@ -14,8 +14,5 @@
 
 void	sort_small(t_table *t)
 {
-	if (t->a->content > t->a->next->content
-		&& t->a->content < t->a->next->next->content)
-		ft_s(t, 'a');
 
 }

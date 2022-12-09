@@ -35,10 +35,7 @@ int	main(int argc, char **argv)
 	if(!table)
 		write_error(table);
 	push_swap(table, argc - 1);
-	//if (argc < 7)
-	// 	solve_simple(argc, argv);
-	//else if (argc >= 5)
-	// push_swap(table);
-	// free_table(table);
+	//ADD
+	free_table(table);
 	return (0);
 }
