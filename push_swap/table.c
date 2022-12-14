@@ -12,16 +12,22 @@
 
 #include "push_swap.h"
 
-t_table *t_init(t_table *t, int size, char **argv)
+t_table	*t_init(t_table *t, int size, char **argv)
 {
-	int	i;
+	t_circular	*n;
+	int			i;
 
 	i = 0;
 	t = malloc(sizeof(t_table));
 	if (!t)
 		return (NULL);
+	t->a_head = NULL;
+	t->b_head = NULL;
 	while (i++ < size)
-		if (!insert_back(&(t->a), new_node(ft_atoi(argv[i]))))
+	{
+		n = new_node(ft_atoi(argv[i]));
+		if (!insert_back(&(t->a_head), &n))
 			return (NULL);
+	}
 	return (t);
 }

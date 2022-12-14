@@ -20,7 +20,8 @@
 
 typedef struct s_circular
 {
-	int					head;
+	int					i;
+	int					intended_i;
 	int					content;
 	struct s_circular	*prev;
 	struct s_circular	*next;
@@ -28,25 +29,24 @@ typedef struct s_circular
 
 typedef struct s_table
 {
-	struct s_circular	*a;
-	struct s_circular	*b;
+	struct s_circular	*a_head;
+	struct s_circular	*b_head;
 }				t_table;
 
 /*==================================*/
 /*				ACTIONS				*/
 /*==================================*/
 
-int			ft_s(t_circular **l);
-int			ft_r(t_circular **l);
-int			ft_rr(t_circular **l);
-int			ft_p(t_circular **dst, t_circular **src);
-int 		apply_double(t_circular **a, t_circular **b, int type);
+void		ft_s(t_circular **l);
+void		ft_r(t_circular **l);
+void		ft_rr(t_circular **l);
+void		ft_p(t_circular **dst, t_circular **src);
+void		apply_double(t_circular **a, t_circular **b, int type);
 
 /*==================================*/
 /*				CHECK				*/
 /*==================================*/
 
-int			is_sorted(t_table *t);
 void		check_input(char **v);
 
 /*==================================*/
@@ -61,10 +61,10 @@ void		write_error(t_table *t);
 /*			LIST_ACTIONS			*/
 /*==================================*/
 
-t_circular	*find_beginning(t_circular *l);
+int			list_len(t_circular *l);
 void		remove_node(t_circular **l);
-int			insert_beginning(t_circular **l, t_circular *new);
-int			insert_back(t_circular **l, t_circular *new);
+int			insert_front(t_circular **l, t_circular **n);
+int			insert_back(t_circular **l, t_circular **n);
 t_circular	*new_node(int value);
 
 /*==================================*/
@@ -84,6 +84,6 @@ t_table		*t_init(t_table *t, int size, char **argv);
 /*			SOLVE_SMALL				*/
 /*==================================*/
 
-void	sort_small(t_table *t);
+void		sort_small(t_table *t);
 
 #endif

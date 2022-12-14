@@ -12,17 +12,28 @@
 
 #include "push_swap.h"
 
-int	is_sorted(t_table *t)
+static void	check_limits(char **v)
 {
-	if (!t || !t->a)
-		return (0);
-	while (t->a->next->head != 1)
+	int			i;
+	int			j;
+	long int	check;
+
+	i = 0;
+	check = 0;
+	while (v[i])
 	{
-		if (t->a->next->content < t->a->content)
-			return (0);
-		t->a = t->a->next;
+		j = 0;
+		if (v[i][j] == '-')
+			j++;
+		while (v[i][j])
+		{
+			check = check * 10 + v[i][j] - '0';
+			j++;
+		}
+		i++;
 	}
-	return (1);
+	if (check < 2147483648 || check > 2147483647)
+		write_error(NULL);
 }
 
 static void	check_singularity(char **v)
@@ -46,34 +57,15 @@ static void	check_singularity(char **v)
 
 static void	check_ints(char **v)
 {
-	long int	tmp;
 	int			i;
 	int			j;
 
 	i = 1;
 	while (v[i])
 	{
-		j = i + 1;
-		while (v[j])
-		{
-			tmp = ft_atoi(v[j]);
-			if (tmp <= -2147483648 || tmp >= 2147483647)
-				write_error(NULL);
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	check_chars(char **v)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (v[i])
-	{
 		j = 0;
+		if (v[i][j] == '-')
+			j++;
 		while (v[i][j])
 		{
 			if (!ft_isdigit(v[i][j]))
@@ -86,7 +78,7 @@ static void	check_chars(char **v)
 
 void	check_input(char **v)
 {
-	check_chars(v);
 	check_ints(v);
+	check_limits(v);
 	check_singularity(v);
 }

@@ -18,23 +18,19 @@ void	free_list(t_circular **l)
 
 	if (!*l)
 		return ;
-	while (*l)
-	{
-		child = (*l)->next;
-		free(child);
-		*l = child;
-	}
-	*l = NULL;
+	child = (*l)->next;
+	(*l)->next = NULL;
+	(*l)->prev = NULL;
+	free(l);
+	free_list(&child);
 }
 
 void	free_table(t_table *t)
 {
 	if (!t)
 		return ;
-	if (t->a)
-		free_list(&(t->a));
-	if (t->b)
-		free_list(&(t->b));
+	free_list(&(t->a_head));
+	free_list(&(t->b_head));
 	free(t);
 }
 

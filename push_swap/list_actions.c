@@ -12,16 +12,29 @@
 
 #include "push_swap.h"
 
-t_circular *find_beginning(t_circular *l)
+int	list_len(t_circular *l)
 {
-	while (l->head != 1)
-		l = l->next;
-	return (l);
+	t_circular	*tmp;
+	int			i;
+
+	i = 0;
+	tmp = l;
+	if (l->next != tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	while (tmp != l)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }
 
 void	remove_node(t_circular **l)
 {
-	t_circular *tmp;
+	t_circular	*tmp;
 
 	if ((*l)->next == *l)
 	{
@@ -38,61 +51,62 @@ void	remove_node(t_circular **l)
 	}
 }
 
-int	insert_beginning(t_circular **l, t_circular *new)
+
+int	insert_front(t_circular **l, t_circular **n)
 {
 	t_circular	*tmp;
 
-	if (!new)
+	if (!n || !*n)
 		return (0);
 	if (!*l)
 	{
-		new->head = 1;
-		new->next = new;
-		new->prev = new;
-		*l = new;
+		(*n)->next = *n;
+		(*n)->prev = *n;
+		l = n;
 		return (1);
 	}
-    tmp = (*l)->prev;
-	new->next = *l;
-	new->prev = tmp;
-	tmp->next = new;
-	(*l)->prev = new;
-	new->head = 1;
-	(*l)->head = 0;
-	*l = new;
+	tmp = (*l)->prev;
+	(*n)->next = *l;
+	(*n)->prev = tmp;
+	tmp->next = (*n);
+	(*l)->prev = (*n);
+	*l = (*n);
 	return (1);
 }
 
-int	insert_back(t_circular **l, t_circular *new)
+int	insert_back(t_circular **l, t_circular **n)
 {
-	t_circular *tmp;
-	if (!l || !new)
+	t_circular	*tmp;
+
+	if (!n || !*n || !l)
 		return (0);
-	if (*l == NULL)
+	if (!*l)
 	{
-		new->next = new;
-		new->prev = new;
-		new->head = 1;
-		*l = new;
+		(*n)->next = *n;
+		(*n)->prev = *n;
+		*l = *n;
 		return (1);
 	}
-	tmp  = (*l)->prev;
-	new->next = *l;
-	(*l)->prev = new;
-	new->prev = tmp;
-	tmp->next = new;
+	tmp = (*l)->prev;
+	(*n)->next = *l;
+	(*n)->prev = tmp;
+	tmp->next = (*n);
+	(*l)->prev = (*n);
 	return (1);
 }
+
 
 t_circular	*new_node(int value)
 {
 	t_circular	*new;
+
 	new = (t_circular *)malloc(sizeof(t_circular));
-	if(!new)
-       return (NULL);
-    new->content = value;
-	new->head = 0;
+	if (!new)
+		return (NULL);
+	new->content = value;
 	new->next = NULL;
 	new->prev = NULL;
+	new->i = -1;
+	new->intended_i = -1;
 	return (new);
 }
