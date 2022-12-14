@@ -51,7 +51,6 @@ void	remove_node(t_circular **l)
 	}
 }
 
-
 int	insert_front(t_circular **l, t_circular **n)
 {
 	t_circular	*tmp;
@@ -95,7 +94,6 @@ int	insert_back(t_circular **l, t_circular **n)
 	return (1);
 }
 
-
 t_circular	*new_node(int value)
 {
 	t_circular	*new;
@@ -106,7 +104,6 @@ t_circular	*new_node(int value)
 	new->content = value;
 	new->next = NULL;
 	new->prev = NULL;
-	new->i = -1;
-	new->intended_i = -1;
+	new->desired_i = -1;
 	return (new);
 }

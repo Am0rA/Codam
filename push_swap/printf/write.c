@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   write.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/13 21:48:38 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/14 21:11:56 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/23 21:57:34 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/24 14:32:46 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_printf.h"
 
-int	main(int ac, char **av)
+int	write_chr(char c)
 {
-	t_table	*table;
+	write(1, &c, 1);
+	return (1);
+}
 
-	table = NULL;
-	if (ac <= 2)
-		return (0);
-	check_input(&av[1]);
-	table = t_init(table, ac - 1, &av[1]);
-	if (!table)
-		write_error(table);
-	push_swap(table);
-	free_table(table);
-	return (0);
+int	write_str(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i += write_chr(s[i]);
+	return (i);
 }

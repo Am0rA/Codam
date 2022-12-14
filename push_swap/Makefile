@@ -26,27 +26,35 @@ SRC 	=	actions.c \
 			check.c \
 			error.c \
 			list_actions.c \
+			main.c \
+			next_s-b.c \
+			path_finder.c \
 			push_swap.c \
 			table.c
 OBJ		= $(SRC:.c=.o)
 OBJL	= libft/*.o
+OBJP	= printf/*.o
 ####################################
 all: $(NAME)($(OBJ))
-	cd libft && $(MAKE)
+	$(MAKE) -C libft/
+	$(MAKE) -C printf/
 
 %.o: %.c $(HEADER)
 	$(COMPILE) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(ARCHIVE) $(NAME) $< $(OBJL)
+	$(ARCHIVE) $(NAME) $< $(OBJL) $(OBJP)
 
 clean:
 	$(RM) $(OBJ)
-	cd libft && $(MAKE) clean
+	$(MAKE) -C libft/ clean
+	$(MAKE) -C printf/ clean
 
 fclean: clean
 	$(RM) $(NAME)
-	cd libft && $(MAKE) fclean
+	$(MAKE) -C libft/ fclean
+	$(MAKE) -C printf/ fclean
+	
 
 re: fclean all
 

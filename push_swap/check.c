@@ -82,3 +82,16 @@ void	check_input(char **v)
 	check_limits(v);
 	check_singularity(v);
 }
+
+int	sorted(t_table *t)
+{
+	t_circular	*tmp;
+
+	tmp = t->a_head;
+	while (tmp->content < tmp->next->content && tmp->next != t->a_head)
+			tmp = tmp->next;
+	if (t->b_head == NULL)
+		if (tmp->next != t->a_head && tmp != next_biggest(tmp, NULL))
+			return (0);
+	return (1);
+}

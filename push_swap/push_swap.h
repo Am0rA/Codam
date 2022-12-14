@@ -14,15 +14,16 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+# include "printf/ft_printf.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 
 typedef struct s_circular
 {
-	int					i;
-	int					intended_i;
+	int					desired_i;
 	int					content;
+	int					distance;
 	struct s_circular	*prev;
 	struct s_circular	*next;
 }				t_circular;
@@ -48,6 +49,7 @@ void		apply_double(t_circular **a, t_circular **b, int type);
 /*==================================*/
 
 void		check_input(char **v);
+int			sorted(t_table *t);
 
 /*==================================*/
 /*				ERROR				*/
@@ -68,22 +70,37 @@ int			insert_back(t_circular **l, t_circular **n);
 t_circular	*new_node(int value);
 
 /*==================================*/
+/*				MAIN				*/
+/*==================================*/
+
+int			main(int ac, char **av);
+
+/*==================================*/
+/*				NEXT_S-B			*/
+/*==================================*/
+
+t_circular	*next_smallest(t_circular *src, t_circular *prev);
+t_circular	*next_biggest(t_circular *src, t_circular *prev);
+
+/*==================================*/
+/*				PATH_FINDER			*/
+/*==================================*/
+
+int			path_len(t_circular	*l, t_circular *obj);
+void		path_assign(t_table	*t);
+void		path_put(t_table *t);
+void		put(t_table *t, t_circular *closest, int c);
+
+/*==================================*/
 /*				PUSH_SWAP			*/
 /*==================================*/
 
-void		push_swap(t_table *t, int argc);
-int			main(int argc, char **argv);
+void		push_swap(t_table *t);
 
 /*==================================*/
 /*				TABLE				*/
 /*==================================*/
 
 t_table		*t_init(t_table *t, int size, char **argv);
-
-/*==================================*/
-/*			SOLVE_SMALL				*/
-/*==================================*/
-
-void		sort_small(t_table *t);
 
 #endif
