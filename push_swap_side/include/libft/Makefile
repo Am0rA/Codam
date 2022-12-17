@@ -81,7 +81,7 @@ bonus:
 	$(MAKE) WITH_BONUS=1
 
 %.o: %.c $(HEADER)
-	$(COMPILE) -c $< -o $@ 
+	$(COMPILE) -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(ARCHIVE) $(NAME) $<
