@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/30 16:35:03 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 21:34:28 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/17 00:44:40 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/12/17 00:44:40 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,24 +82,4 @@ void	check_input(char **v)
 	check_ints(v);
 	check_limits(v);
 	check_singularity(v);
-}
-
-int	sorted(t_circular *l, char c)
-{
-	t_circular	*tmp;
-	int			value;
-
-	if (c == 'b' && !l)
-		return (1);
-	if (c == 'b' && l)
-		return (0);
-	tmp = l->next;
-	value = l->content;
-	while (tmp != l)
-	{
-		if (value > tmp->content)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
 }

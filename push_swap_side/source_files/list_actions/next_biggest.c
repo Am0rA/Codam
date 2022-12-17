@@ -1,45 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   next_biggest.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/28 00:39:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 16:02:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/17 00:48:13 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/12/17 00:48:13 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_list(t_circular *l)
+t_circular	*next_biggest(t_circular *src, t_circular *prev)
 {
-	t_circular	*child;
 	t_circular	*tmp;
+	t_circular	*next_big;
 
-	if (!l)
-		return ;
-	child = l->next;
-	tmp = l->prev;
-	tmp->next = NULL;
-	l->next = NULL;
-	l->prev = NULL;
-	free(l);
-	free_list(child);
-}
-
-void	free_table(t_table *t)
-{
-	if (!t)
-		return ;
-	free_list(t->a_head);
-	free_list(t->b_head);
-	free(t);
-}
-
-void	write_error(t_table *t)
-{
-	write(1, "Error\n", 6);
-	free_table(t);
-	exit(-1);
+	next_big = src;
+	tmp = src->next;
+	while (tmp != src)
+	{
+		if (next_big->content < tmp->content && !prev)
+			next_big = tmp;
+		else if (next_big->content < tmp->content && prev->content > tmp->content)
+			next_big = tmp;
+		tmp = tmp->next;
+	}
+	return (next_big);
 }

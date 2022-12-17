@@ -1,45 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/28 00:39:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 16:02:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/17 00:50:20 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/12/17 00:50:20 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_list(t_circular *l)
+int	main(int ac, char **av)
 {
-	t_circular	*child;
-	t_circular	*tmp;
+	t_table	*table;
 
-	if (!l)
-		return ;
-	child = l->next;
-	tmp = l->prev;
-	tmp->next = NULL;
-	l->next = NULL;
-	l->prev = NULL;
-	free(l);
-	free_list(child);
-}
-
-void	free_table(t_table *t)
-{
-	if (!t)
-		return ;
-	free_list(t->a_head);
-	free_list(t->b_head);
-	free(t);
-}
-
-void	write_error(t_table *t)
-{
-	write(1, "Error\n", 6);
-	free_table(t);
-	exit(-1);
+	table = NULL;
+	if (ac <= 2)
+		return (0);
+	check_input(&av[1]);
+	table = t_init(table, ac - 1, &av[1]);
+	if (!table)
+		write_error(table);
+	push_swap(table);
+	free_table(table);
+	return (0);
 }

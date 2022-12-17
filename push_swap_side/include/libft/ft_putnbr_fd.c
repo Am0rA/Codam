@@ -1,45 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   ft_putnbr_fd.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/28 00:39:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 16:02:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:02:25 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:02:25 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	free_list(t_circular *l)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_circular	*child;
-	t_circular	*tmp;
-
-	if (!l)
+	if (fd < 0)
 		return ;
-	child = l->next;
-	tmp = l->prev;
-	tmp->next = NULL;
-	l->next = NULL;
-	l->prev = NULL;
-	free(l);
-	free_list(child);
-}
-
-void	free_table(t_table *t)
-{
-	if (!t)
+	if (n == -2147483648)
+	{
+		ft_putstr_fd("-2147483648", fd);
 		return ;
-	free_list(t->a_head);
-	free_list(t->b_head);
-	free(t);
-}
-
-void	write_error(t_table *t)
-{
-	write(1, "Error\n", 6);
-	free_table(t);
-	exit(-1);
+	}
+	if (n < 0)
+	{
+		n *= -1;
+		ft_putchar_fd('-', fd);
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putchar_fd(n % 10 + '0', fd);
+	}
+	if (n < 10)
+	{
+		ft_putchar_fd(n + '0', fd);
+	}
 }

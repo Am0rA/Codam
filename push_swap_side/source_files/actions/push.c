@@ -1,45 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   push.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/28 00:39:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 16:02:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/17 00:39:14 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/12/17 00:39:14 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_list(t_circular *l)
+void	ft_p(t_circular **dst, t_circular **src, char c)
 {
-	t_circular	*child;
-	t_circular	*tmp;
+	t_circular	*src_next;
+	t_circular	*src_prev;
 
-	if (!l)
+	if (!src)
 		return ;
-	child = l->next;
-	tmp = l->prev;
-	tmp->next = NULL;
-	l->next = NULL;
-	l->prev = NULL;
-	free(l);
-	free_list(child);
-}
-
-void	free_table(t_table *t)
-{
-	if (!t)
-		return ;
-	free_list(t->a_head);
-	free_list(t->b_head);
-	free(t);
-}
-
-void	write_error(t_table *t)
-{
-	write(1, "Error\n", 6);
-	free_table(t);
-	exit(-1);
+	src_next = (*src)->next;
+	src_prev = (*src)->prev;
+	src_prev->next = src_next;
+	src_next->prev = src_prev;
+	insert_front(dst, src);
+	*src = src_next;
+	ft_printf("p%c\n", c);
 }
