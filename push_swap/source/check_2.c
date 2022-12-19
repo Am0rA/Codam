@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   check_2.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/28 00:39:10 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 16:02:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/19 21:44:29 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/12/19 21:44:29 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_list(t_circular *l)
+int	sorted(t_tail *l, char c)
 {
-	t_circular	*child;
-	t_circular	*tmp;
+	t_tail	*tmp;
 
-	if (!l)
-		return ;
-	child = l->next;
-	tmp = l->prev;
-	tmp->next = NULL;
-	l->next = NULL;
-	l->prev = NULL;
-	free(l);
-	free_list(child);
+	if (c == 'b' && !l)
+		return (1);
+	if (c == 'b' && l)
+		return (0);
+	tmp = l;
+	while (tmp)
+	{
+		if (tmp->content < tmp->next->content)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+void	free_list(t_tail *l)
+{
+	t_tail	*tmp;
+
+	while (l)
+	{
+		tmp = l->next;
+		l->next = NULL;
+		l->prev = NULL;
+		free (l);
+		l = tmp;
+	}
 }
 
 void	free_table(t_table *t)
@@ -35,11 +51,4 @@ void	free_table(t_table *t)
 	free_list(t->a_head);
 	free_list(t->b_head);
 	free(t);
-}
-
-void	write_error(t_table *t)
-{
-	write(1, "Error\n", 6);
-	free_table(t);
-	exit(-1);
 }

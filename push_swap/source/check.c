@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   check.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
+/*   By: anonymous <anonymous@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/30 16:35:03 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 21:34:28 by itopchu       ########   odam.nl         */
+/*   Created: 2022/12/19 21:43:15 by anonymous     #+#    #+#                 */
+/*   Updated: 2022/12/19 21:43:15 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	check_limits(char **v)
 {
 	int			i;
 	int			j;
-	long long int		check;
+	long		check;
 
 	i = 0;
 	while (v[i])
@@ -34,7 +34,6 @@ static void	check_limits(char **v)
 		if (check < -2147483648 || check > 2147483647)
 			write_error(NULL);
 	}
-
 }
 
 static void	check_singularity(char **v)
@@ -84,22 +83,9 @@ void	check_input(char **v)
 	check_singularity(v);
 }
 
-int	sorted(t_circular *l, char c)
+void	write_error(t_table *t)
 {
-	t_circular	*tmp;
-	int			value;
-
-	if (c == 'b' && !l)
-		return (1);
-	if (c == 'b' && l)
-		return (0);
-	tmp = l->next;
-	value = l->content;
-	while (tmp != l)
-	{
-		if (value > tmp->content)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
+	write(1, "Error\n", 6);
+	free_table(t);
+	exit(-1);
 }

@@ -5,57 +5,60 @@
 #                                                      +:+                     #
 #    By: itopchu <itopchu@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
-#    Created: 2022/11/27 21:07:01 by itopchu       #+#    #+#                  #
-#    Updated: 2022/11/27 21:07:01 by itopchu       ########   odam.nl          #
+#    Created: 2022/12/18 15:16:33 by itopchu       #+#    #+#                  #
+#    Updated: 2022/12/18 15:16:33 by itopchu       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= push_swap.a
-HEADER	= push_swap.h
-####################################
+EXEC	= push_swap
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
-COMPILE = $(CC) $(CFLAGS)
-RM		= rm -rf
-####################################
-AR		= ar
-ARFLAGS	= -rcs
-ARCHIVE	= $(AR) $(ARFLAGS)
-####################################
-SRC 	=	actions.c \
+#******************************************************************************#
+INC		= include/
+LIBFT	= include/libft
+PRINTF	= include/printf
+#******************************************************************************#
+SRC_DIR	= ./source/
+SRC		= $(addprefix $(SRC_DIR), $(SRC_F))
+SRC_F	=	actions_2.c \
+			actions.c \
+			check_2.c \
 			check.c \
-			error.c \
-			list_actions.c \
+			list_utils_2.c \
+			list_utils.c \
+			path_utils_2.c \
+			path_utils.c \
 			main.c \
-			next_s-b.c \
-			path_finder.c \
-			push_swap.c \
-			table.c
-OBJ		= $(SRC:.c=.o)
-OBJL	= libft/*.o
-OBJP	= printf/*.o
-####################################
-all: $(NAME)($(OBJ))
-	$(MAKE) -C libft/
-	$(MAKE) -C printf/
+			push_swap.c
 
-%.o: %.c $(HEADER)
-	$(COMPILE) -c $< -o $@
 
-$(NAME): $(OBJ)
-	$(ARCHIVE) $(NAME) $< $(OBJL) $(OBJP)
+OBJ		= ${SRC:.c=.o}
+#******************************************************************************#
+CFLAGS	= -Wall -Wextra -Werror
+RM		= rm -f
+#******************************************************************************#
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -I $(INC) -I $(LIBFT) -I $(PRINTF) -o $@
 
-clean:
+$(EXEC): $(OBJ)
+	$(MAKE) bonus -C $(LIBFT)
+	$(MAKE) -C $(PRINTF)
+	$(CC) -o $(EXEC) $(CFLAGS) $(OBJ) $(LIBFT)/libft.a $(PRINTF)/libftprintf.a
+#******************************************************************************#
+all		: $(EXEC)
+
+debug	: CFLAGS = -g -fsanitize=address
+debug	: fclean all
+
+clean	:
+	$(MAKE) -C $(LIBFT) clean
+	$(MAKE) -C $(PRINTF) clean
 	$(RM) $(OBJ)
-	$(MAKE) -C libft/ clean
-	$(MAKE) -C printf/ clean
 
-fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C libft/ fclean
-	$(MAKE) -C printf/ fclean
-	
+fclean	: clean
+	$(MAKE) -C $(LIBFT) fclean
+	$(MAKE) -C $(PRINTF) fclean
+	$(RM) $(EXEC)
 
-re: fclean all
+re		: fclean all
 
-.PHONY: clean all fclean re
+.PHONY	: all, clean, fclean, re

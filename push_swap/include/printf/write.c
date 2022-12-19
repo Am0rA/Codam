@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   table.c                                            :+:    :+:            */
+/*   write.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/30 16:14:44 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/02 21:26:53 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/23 21:57:34 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/24 14:32:46 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_printf.h"
 
-t_table	*t_init(t_table *t, int size, char **argv)
+int	write_chr(char c)
 {
-	t_circular	*n;
-	int			i;
+	write(1, &c, 1);
+	return (1);
+}
+
+int	write_str(const char *s)
+{
+	int	i;
 
 	i = 0;
-	t = malloc(sizeof(t_table));
-	if (!t)
-		return (NULL);
-	t->a_head = NULL;
-	t->b_head = NULL;
-	while (i++ < size)
-	{
-		n = new_node(ft_atoi(argv[i]));
-		if (!insert_back(&(t->a_head), &n))
-			return (NULL);
-	}
-	return (t);
+	while (s[i])
+		i += write_chr(s[i]);
+	return (i);
 }
