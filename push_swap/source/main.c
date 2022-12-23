@@ -20,8 +20,9 @@ int	main(int ac, char **av)
 	if (ac <= 2)
 		return (0);
 	check_input(&av[1]);
-	table_init(table, ac - 1, &av[1]);
+	table_init(&table, ac - 1, &av[1]);
 	push_swap(table);
+	printlist(table->a_head);
 	free_table(table);
 	return (0);
 }

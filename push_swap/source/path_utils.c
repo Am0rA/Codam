@@ -12,45 +12,49 @@
 
 #include "push_swap.h"
 
-int	path_in_a(t_tail *l, t_tail *prev)
+int path_in_a(t_tail *l, t_tail *obj)
 {
-	t_tail	*tmp;
-	t_tail	*next;
-	int		i;
+    t_tail	*current;
+    t_tail	*target;
+    int		steps;
 	int		len;
 
-	i = 0;
 	len = list_len(l);
-	tmp = l;
-	next = next_smallest(l, prev);
-	while (tmp != next)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	if (i < len/2)
-		return (i);
-	return (-1*(len - i));
+	steps = 0;
+	current = l;
+	if (next_biggest(l, NULL)->value < obj->value)
+		target = next_smallest(l, NULL);
+	else
+		target = next_biggest(l, obj);
+    while (current && current != target)
+    {
+		current = current->next;
+        steps++;
+    }
+	if (steps * 2 > len)
+		return (steps - len);
+	return (steps);
 }
 
 int	path_in_b(t_tail *l, t_tail *obj)
 {
-	t_tail	*tmp;
-	int		i;
+	t_tail	*current;
+	int		steps;
 	int		len;
 
-	i = 0;
-	tmp = obj;
+	steps = 0;
+	current = obj;
 	len = list_len(l);
-	while (tmp != l)
+	while (current->next != NULL)
 	{
-		i++;
-		tmp = tmp->prev;
+		steps++;
+		current = current->next;
 	}
-	if (i < len/2)
-		return (-i);
-	return (len - i);
+	if (steps * 2 > len)
+		return (steps - len);
+	return (steps);
 }
+
 static void	set_dist(t_tail *l)
 {
 	int	a;

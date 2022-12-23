@@ -12,60 +12,96 @@
 
 #include "push_swap.h"
 
+t_tail	*biggest(t_tail *src)
+{
+	t_tail	*tmp;
+	t_tail	*next;
+
+	tmp = src;
+	next = src;
+	while (tmp)
+	{
+		if (tmp->value > next->value)
+			next = tmp;
+		tmp = tmp->next;
+	}
+	return (next);
+}
+
+t_tail	*smallest(t_tail *src)
+{
+	t_tail	*tmp;
+	t_tail	*next;
+
+	tmp = src;
+	next = src;
+	while (tmp)
+	{
+		if (tmp->value < next->value)
+			next = tmp;
+		tmp = tmp->next;
+	}
+	return (next);
+}
+
 t_tail	*next_biggest(t_tail *src, t_tail *prev)
 {
-	t_tail	*next;
-	t_tail	*tmp;
+    t_tail *next;
+	t_tail *tmp;
 
-	next = src;
+	if (!prev)
+ 		return (biggest(src));
+	if (biggest(src)->value < prev->value)
+		return (smallest(src));
+	next = smallest(src);
 	tmp = src;
 	while (tmp)
 	{
-		if (!prev && next->value < tmp->value)
-			next = tmp;
-		else if (next->value < tmp->value
-			&& tmp->value < prev->value)
+		if (tmp->value > next->value
+			&& prev->value > tmp->value)
 			next = tmp;
 		tmp = tmp->next;
 	}
 	return (next);
 }
 
-t_tail	*next_smallest(t_tail *src, t_tail *prev)
+t_tail *next_smallest(t_tail *src, t_tail *prev)
 {
-	t_tail	*next;
-	t_tail	*tmp;
+    t_tail *next;
+    t_tail *tmp;
 
-	next = src;
+	if (!prev)
+		return (smallest(src));
+	if (smallest(src)->value > prev->value)
+		return (smallest(src));
+	next = biggest(src);
 	tmp = src;
 	while (tmp)
 	{
-		if (!prev && next->value > tmp->value)
-			next = tmp;
-		else if (next->value > tmp->value
-			&& tmp->value > prev->value)
-			next = tmp;
+		if (tmp->value < prev->value
+			&& tmp->value < next->value)
+            next = tmp;
 		tmp = tmp->next;
 	}
-	return (next);
+    return (next);
 }
 
-t_tail	*delete_node(t_tail *l)
+t_tail	*delete_node(t_tail **l)
 {
 	t_tail	*tmp;
 
-	if (!l)
+	if (!*l)
 		return (NULL);
-	tmp = l;
-	if (l->next)
-		l = l->next;
+	tmp = *l;
+	if ((*l)->next)
+		*l = (*l)->next;
 	free(tmp);
 	tmp = NULL;
-	if (list_len(l) == 0)
+	if (list_len(*l) == 0)
 	{
-		l->next = NULL;
-		l->prev = NULL;
-		l = NULL;
+		(*l)->next = NULL;
+		(*l)->prev = NULL;
+		(*l) = NULL;
 	}
-	return (l);
+	return (*l);
 }

@@ -83,9 +83,9 @@ void	check_input(char **v)
 	check_singularity(v);
 }
 
-void	write_error(t_table *t)
+void	write_error(t_table **t)
 {
 	write(1, "Error\n", 6);
-	free_table(t);
+	free_table(*t);
 	exit(-1);
 }

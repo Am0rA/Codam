@@ -21,9 +21,9 @@ int	sorted(t_tail *l, char c)
 	if (c == 'b' && l)
 		return (0);
 	tmp = l;
-	while (tmp)
+	while (tmp->next)
 	{
-		if (tmp->content < tmp->next->content)
+		if (tmp->value > tmp->next->value)
 			return (0);
 		tmp = tmp->next;
 	}

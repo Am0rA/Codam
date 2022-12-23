@@ -12,60 +12,46 @@
 
 #include "push_swap.h"
 
-static void	rotate_both(t_table *t, t_tail **anchor)
+static void rotate_a(t_table *t, t_tail **anchor)
 {
-	while ((*anchor)->dist_a > 0 && (*anchor)->dist_b > 0)
-	{
-		rotate(t, 'r');
-		(*anchor)->dist_a--;
-		(*anchor)->dist_b--;
-	}
-	while ((*anchor)->dist_a < 0 && (*anchor)->dist_b < 0)
-	{
-		rotate_reverse(t, 'r');
-		(*anchor)->dist_a++;
-		(*anchor)->dist_b++;
-	}
-}
-
-static void	rotate_a(t_table *t, t_tail **anchor)
-{
-	while ((*anchor)->dist_a != 0)
-	{
-		if ((*anchor)->dist_a > 0)
-		{
-			rotate(t, 'a');
-			(*anchor)->dist_a--;
-		}
-		else if ((*anchor)->dist_a < 0)
-		{
-			rotate_reverse(t, 'a');
-			(*anchor)->dist_a++;
-		}
-	}
+	if ((*anchor)->dist_a > 0)
+        rotate(t, 'a');
+	else if ((*anchor)->dist_a < 0)
+		rotate_reverse(t, 'a');
+	path_assign(t);
 }
 
 static void	rotate_b(t_table *t, t_tail **anchor)
 {
-	while ((*anchor)->dist_b != 0)
-	{
-		if ((*anchor)->dist_b > 0)
-		{
-			rotate(t, 'b');
-			(*anchor)->dist_b--;
-		}
-		else if ((*anchor)->dist_b < 0)
-		{
-			rotate_reverse(t, 'b');
-			(*anchor)->dist_b++;
-		}
+	if ((*anchor)->dist_b > 0)
+		rotate(t, 'b');
+	else if ((*anchor)->dist_b < 0)
+		rotate_reverse(t, 'b');
+	path_assign(t);
+}
+
+static void	rotate_both(t_table *t, t_tail **anchor)
+{
+	ft_printf("%d %d %d\n", (*anchor)->dist, (*anchor)->dist_a, (*anchor)->dist_b);
+    while ((*anchor)->dist_a != 0 || (*anchor)->dist_b != 0)
+    {
+        while ((*anchor)->dist_a > 0 && (*anchor)->dist_b > 0)
+        {
+            rotate(t, 'r');
+			path_assign(t);
+        }
+        while ((*anchor)->dist_a < 0 && (*anchor)->dist_b < 0)
+        {
+            rotate_reverse(t, 'r');
+			path_assign(t);
+        }
+		rotate_a(t, anchor);
+		rotate_b(t, anchor);
 	}
 }
 
 void	place_anchor(t_table *t, t_tail **anchor)
 {
 	rotate_both(t, anchor);
-	rotate_a(t, anchor);
-	rotate_b(t, anchor);
 	push(&(t->a_head), &(t->b_head), 'a');
 }

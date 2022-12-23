@@ -19,44 +19,48 @@ int	list_len(t_tail *lst)
 	i = 0;
 	while (lst)
 	{
-		lst = lst -> next;
 		i++;
+		lst = lst->next;
 	}
 	return (i);
 }
 
-t_tail	*insert_back(t_tail *l, t_tail *new)
+t_tail	*insert_back(t_tail **l, t_tail **new)
 {
 	t_tail	*last;
 
-	if (!new)
+	if (!*new)
 		return (NULL);
-	if (!l)
-		l = new;
+	if (!*l)
+		*l = *new;
 	else
 	{
-		last = l;
+		last = *l;
 		while (last->next != NULL)
 			last = last->next;
-		last->next = new;
-		new->prev = last;
+		last->next = *new;
+		(*new)->prev = last;
 	}
-	return (l);
+	return (*l);
 }
 
-t_tail	*insert_front(t_tail *l, t_tail *new)
+t_tail	*insert_front(t_tail **l, t_tail **new)
 {
-	if (!new)
+	if (!*new)
 		return (NULL);
-	if (!l)
-		l = new;
+	if (!*l)
+	{
+		*l = *new;
+		(*new)->next = NULL;
+		(*new)->prev = NULL;
+	}
 	else
 	{
-		new->next = l;
-		l->prev = new;
-		l = new;
+		(*new)->next = *l;
+		(*l)->prev = *new;
+		*l = *new;
 	}
-	return (l);
+	return (*l);
 }
 
 t_tail	*new_node(int i)
@@ -82,7 +86,7 @@ void	printlist(t_tail *head)
 	tmp = head;
 	if (!head)
 		return ;
-	while (tmp != NULL)
+	while (tmp)
 	{
 		ft_printf("%d", tmp->value);
 		tmp = tmp->next;

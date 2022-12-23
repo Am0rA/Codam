@@ -22,14 +22,17 @@ void	push(t_tail **dst, t_tail **src, char c)
 	len  = list_len(*src);
 	if (len == 1)
 	{
-		*dst = insert_front(*dst, *src);
+		(*src)->prev = NULL;
+		*dst = insert_front(dst, src);
 		*src = NULL;
 	}
 	else
 	{
 		tmp = (*src)->next;
-		*dst = insert_front(*dst, *src);
+		(*src)->prev = NULL;
+		*dst = insert_front(dst, src);
 		tmp->prev = NULL;
+		*src = tmp;
 	}
 	ft_printf("p%c\n", c);
 }

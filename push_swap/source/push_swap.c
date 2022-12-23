@@ -29,7 +29,7 @@ static void	place_in_b(t_table *t)
 	int	i;
 
 	i = list_len(t->a_head);
-	while (i > 3 && !sorted(t->a_head, 'a'))
+	while (i > 3 && !sorted(t->a_head, 'a') && t->a_head->next)
 	{
 		if (t->a_head->value > t->a_head->next->value)
 		{
@@ -45,19 +45,20 @@ static void	place_in_b(t_table *t)
 
 static void	place_in_a(t_table *t)
 {
-	t_tail	*tmp;
+	t_tail	*current;
 	t_tail	*anchor;
 
 	while (t->b_head)
 	{
-		tmp = t->b_head;
+		current = t->b_head;
 		anchor = t->b_head;
-		while (tmp)
+		while (current)
 		{
-			if (tmp->dist < anchor->dist)
-				anchor = tmp;
-			tmp = tmp->next;
+			if (current->dist < anchor->dist)
+				anchor = current;
+			current = current->next;
 		}
+		path_assign(t);
 		place_anchor(t, &anchor);
 	}
 }
