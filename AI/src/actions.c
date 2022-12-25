@@ -10,7 +10,6 @@ void	push(t_circular **dst, t_circular **src, char c)
 
 void	rotate(t_table *t, char c)
 {
-	set_dist(t);
 	if (c == 'a')
 		t->a = t->a->prev;
 	else if (c == 'b')
@@ -20,12 +19,12 @@ void	rotate(t_table *t, char c)
 		t->a = t->a->prev;
 		t->b = t->b->prev;
 	}
+	set_dist(t);
 	ft_printf("r%c\n", c);
 }
 
 void	rotate_reverse(t_table *t, char c)
 {
-	set_dist(t);
 	if (c == 'a')
 		t->a = t->a->next;
 	else if (c == 'b')
@@ -35,6 +34,7 @@ void	rotate_reverse(t_table *t, char c)
 		t->a = t->a->next;
 		t->b = t->b->next;
 	}
+	set_dist(t);
 	ft_printf("rr%c\n", c);
 }
 

@@ -20,6 +20,8 @@ t_circular	*extract(t_circular **l)
 {
 	t_circular	*tmp;
 
+	if (!*l)
+		return NULL;
 	if ((*l)->next == (*l))
 	{
 		(*l)->prev = NULL;

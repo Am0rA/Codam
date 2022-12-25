@@ -5,6 +5,8 @@ void	place_in_a(t_table *t)
 	t_circular	*anchor;
 	t_circular	*current;
 
+	if (!(t->b))
+		return ;
 	current = t->b->next;
 	anchor = t->b;
 	while (current != t->b)
@@ -46,16 +48,27 @@ void	set_dist(t_table *t)
 	{
 		c->dist_a = distance_to_head(t->a, next_biggest(t->a, c));
 		c->dist_b = distance_to_head(t->b, c);
-		c->dist = abs(c->dist_a) + abs(c->dist_b);
-		ft_printf("%d %d %d\n", c->dist_a, c->dist_b, c->dist);
+		c->dist = give_abs(c->dist_a) + give_abs(c->dist_b);
 		c = c->next;
 	}
 }
 
 void	push_swap(t_table *t)
 {
+	t_circular	*check;
 	place_in_b(t);
 	set_dist(t);
-	while (!sorted(t->a, 'a') || !sorted(t->b, 'b'))
+	while (!sorted(t->b, 'b'))
 		place_in_a(t);
+	while (!sorted(t->a, 'a'))
+	{
+		check = next_smallest(t->a, NULL);
+		while (check != t->a)
+		{
+			if (distance_to_head(t->a, check) > 0)
+				rotate(t, 'a');
+			else if (distance_to_head(t->a, check) < 0)
+				rotate_reverse(t, 'a');
+		}
+	}
 }

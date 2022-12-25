@@ -8,9 +8,9 @@ int	main(int ac, char **av)
 		return (0);
 	check(&av[1]);
 	table = table_init(ac, av);
-	print_list(table->a);
+	if (sorted(table->a, 'a'))
+		return (0);
 	push_swap(table);
-	print_list(table->a);
 	free_table(table);
 	return (0);
 }
