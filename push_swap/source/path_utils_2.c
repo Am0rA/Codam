@@ -32,7 +32,6 @@ static void	rotate_b(t_table *t, t_tail **anchor)
 
 static void	rotate_both(t_table *t, t_tail **anchor)
 {
-	ft_printf("%d %d %d\n", (*anchor)->dist, (*anchor)->dist_a, (*anchor)->dist_b);
     while ((*anchor)->dist_a != 0 || (*anchor)->dist_b != 0)
     {
         while ((*anchor)->dist_a > 0 && (*anchor)->dist_b > 0)

@@ -60,15 +60,12 @@ void	push_swap(t_table *t)
 	set_dist(t);
 	while (!sorted(t->b, 'b'))
 		place_in_a(t);
+	check = next_smallest(t->a, NULL);
 	while (!sorted(t->a, 'a'))
 	{
-		check = next_smallest(t->a, NULL);
-		while (check != t->a)
-		{
-			if (distance_to_head(t->a, check) > 0)
-				rotate(t, 'a');
-			else if (distance_to_head(t->a, check) < 0)
-				rotate_reverse(t, 'a');
-		}
+		if (distance_to_head(t->a, check) > 0)
+			rotate(t, 'a');
+		else if (distance_to_head(t->a, check) < 0)
+			rotate_reverse(t, 'a');
 	}
 }

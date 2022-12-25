@@ -78,30 +78,10 @@ t_tail *next_smallest(t_tail *src, t_tail *prev)
 	tmp = src;
 	while (tmp)
 	{
-		if (tmp->value < prev->value
+		if (next->value > prev->value
 			&& tmp->value < next->value)
             next = tmp;
 		tmp = tmp->next;
 	}
     return (next);
-}
-
-t_tail	*delete_node(t_tail **l)
-{
-	t_tail	*tmp;
-
-	if (!*l)
-		return (NULL);
-	tmp = *l;
-	if ((*l)->next)
-		*l = (*l)->next;
-	free(tmp);
-	tmp = NULL;
-	if (list_len(*l) == 0)
-	{
-		(*l)->next = NULL;
-		(*l)->prev = NULL;
-		(*l) = NULL;
-	}
-	return (*l);
 }
