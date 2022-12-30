@@ -17,18 +17,16 @@ INC		= include/
 LIBFT	= include/libft
 PRINTF	= include/printf
 #******************************************************************************#
-SRC_DIR	= ./source/
+SRC_DIR	= ./src/
 SRC		= $(addprefix $(SRC_DIR), $(SRC_F))
-SRC_F	=	actions_2.c \
-			actions.c \
+SRC_F	=	actions.c \
 			check_2.c \
 			check.c \
-			list_utils_2.c \
+			helper.c \
 			list_utils.c \
-			path_utils_2.c \
-			path_utils.c \
 			main.c \
-			push_swap.c
+			push_swap.c \
+			table_init.c
 
 
 OBJ		= ${SRC:.c=.o}

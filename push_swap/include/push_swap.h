@@ -6,7 +6,7 @@
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/17 14:55:14 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/23 06:50:37 by anonymous     ########   odam.nl         */
+/*   Updated: 2022/12/28 01:58:52 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,65 +19,70 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef struct s_tail
+typedef struct	s_circular
 {
-	int				value;
-	int				dist;
-	int				dist_a;
-	int				dist_b;
-	struct s_tail	*prev;
-	struct s_tail	*next;
-}				t_tail;
+	int					value;
+	int					dist;
+	int					dist_a;
+	int					dist_b;
+	struct s_circular	*prev;
+	struct s_circular	*next;
+}				t_circular;
 
 typedef struct s_table
 {
-	struct s_tail	*a_head;
-	struct s_tail	*b_head;
+	struct s_circular	*a;
+	struct s_circular	*b;
 }				t_table;
 
+void		print_list(t_circular *l);
 /*==================================*/
 /*				ACTIONS				*/
 /*==================================*/
-void	push(t_tail **dst, t_tail **src, char c);
-void	rotate(t_table *t, char c);
-void	rotate_reverse(t_table *t, char c);
-void	swap(t_table *t, char c);
-void	table_init(t_table **t, int size, char **argv);
+void		push(t_circular **dst, t_circular **src, char c);
+void		rotate(t_table *t, char c);
+void		rotate_reverse(t_table *t, char c);
+void		swap(t_table *t, char c);
 /*==================================*/
 /*				CHECK				*/
 /*==================================*/
-void	check_input(char **v);
-void	write_error(t_table **t);
-int		sorted(t_tail *l, char c);
-void	free_list(t_tail *l);
-void	free_table(t_table *t);
+void		check(char **v);
+void		write_error(t_table **t);
+void		free_table(t_table *t);
+void		free_list(t_circular *l);
+int			sorted(t_circular *l, char c);
+/*==================================*/
+/*				HELPER				*/
+/*==================================*/
+int			give_abs(int number);
+int			distance_to_head(t_circular *l, t_circular *obj);
+void		sort_triple(t_table *t);
+int			list_len(t_circular *l);
+void		place_anchor(t_table *t, t_circular **anchor);
 /*==================================*/
 /*				LIST_UTILS			*/
 /*==================================*/
-int		list_len(t_tail *lst);
-t_tail	*insert_back(t_tail **l, t_tail **new);
-t_tail	*insert_front(t_tail **l, t_tail **new);
-t_tail	*new_node(int i);
-void	printlist(t_tail *head);
-t_tail	*biggest(t_tail *src);
-t_tail	*smallest(t_tail *src);
-t_tail	*next_biggest(t_tail *src, t_tail *prev);
-t_tail	*next_smallest(t_tail *src, t_tail *prev);
-t_tail	*delete_node(t_tail **l);
+t_circular	*next_smallest(t_circular *src, t_circular *prev);
+t_circular	*next_biggest(t_circular *src, t_circular *prev);
+t_circular	*biggest(t_circular *src);
+t_circular	*smallest(t_circular *src);
 /*==================================*/
 /*				MAIN				*/
 /*==================================*/
-int		main(int ac, char **av);
-/*==================================*/
-/*				PATH_UTILS			*/
-/*==================================*/
-int		path_in_a(t_tail *l, t_tail *prev);
-int		path_in_b(t_tail *l, t_tail *obj);
-void	path_assign(t_table	*t);
-void	place_anchor(t_table *t, t_tail **anchor);
+int			main(int ac, char **av);
 /*==================================*/
 /*				PUSH_SWAP			*/
 /*==================================*/
-void	push_swap(t_table *t);
+void		push_swap(t_table *t);
+void		set_dist(t_table *t);
+void		place_in_b(t_table *t);
+void		place_in_a(t_table *t);
+/*==================================*/
+/*				TABLE_INIT			*/
+/*==================================*/
+t_table		*table_init(int ac, char **av);
+t_circular	*insert(t_circular **l, t_circular **new);
+t_circular	*extract(t_circular **l);
+t_circular	*new_node(int value);
 
 #endif
