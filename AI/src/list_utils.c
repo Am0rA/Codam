@@ -71,7 +71,7 @@ t_circular *next_smallest(t_circular *src, t_circular *prev)
 	count = 0;
 	while (tmp != src || count == 0)
 	{
-		if (next->value > prev->value
+		if (tmp->value > prev->value
 			&& tmp->value < next->value)
             next = tmp;
 		tmp = tmp->next;

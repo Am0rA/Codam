@@ -11,6 +11,7 @@ int	main(int ac, char **av)
 	if (sorted(table->a, 'a'))
 		return (0);
 	push_swap(table);
+	print_list(table->a);
 	free_table(table);
 	return (0);
 }
