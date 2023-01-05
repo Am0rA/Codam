@@ -28,7 +28,6 @@ SRC_F	=	actions.c \
 			push_swap.c \
 			table_init.c
 
-
 OBJ		= ${SRC:.c=.o}
 #******************************************************************************#
 CFLAGS	= -Wall -Wextra -Werror -g

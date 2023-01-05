@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.c                                            :+:    :+:            */
+/*   ft_striteri.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/31 04:47:08 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/31 04:47:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:03:59 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:03:59 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	pipex(t_data *data)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	
+	unsigned int	i;
+
+	if (!s || !f)
+		return ;
+	i = 0;
+	while (*s)
+	{
+		f(i, s);
+		s++;
+		i++;
+	}
 }

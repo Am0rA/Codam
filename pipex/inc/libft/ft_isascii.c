@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.c                                            :+:    :+:            */
+/*   ft_isascii.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/31 04:47:08 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/31 04:47:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:00:30 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:00:30 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	pipex(t_data *data)
+int	ft_isascii(int c)
 {
-	
+	return (c >= 0 && c <= 127);
 }

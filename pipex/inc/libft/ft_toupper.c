@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.c                                            :+:    :+:            */
+/*   ft_toupper.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/31 04:47:08 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/31 04:47:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:10:22 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:10:22 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	pipex(t_data *data)
+int	ft_toupper(int c)
 {
-	
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
 }

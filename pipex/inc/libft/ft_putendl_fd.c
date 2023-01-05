@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.c                                            :+:    :+:            */
+/*   ft_putendl_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/31 04:47:08 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/31 04:47:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:02:22 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:02:22 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	pipex(t_data *data)
+void	ft_putendl_fd(char *s, int fd)
 {
-	
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

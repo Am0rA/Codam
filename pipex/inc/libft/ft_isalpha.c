@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.c                                            :+:    :+:            */
+/*   ft_isalpha.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/31 04:47:08 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/31 04:47:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:00:23 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:00:23 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	pipex(t_data *data)
+int	ft_isalpha(int c)
 {
-	
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }

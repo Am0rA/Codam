@@ -13,18 +13,25 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft.h"
-# include "ft_printf.h"
+# include "libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# define NOT_FOUND 127
+
+typedef enum e_pipe
+{
+	WRITE = 1,
+	READ = 0
+}	t_pipe;
 
 /*==================================*/
 /*				MAIN				*/
 /*==================================*/
-int			main(int ac, char **av, char **envp);
+int		main(int ac, char **av, char **envp);
 /*==================================*/
 /*				PIPEX				*/
 /*==================================*/
+void	pipex(t_data *data);
 
 #endif

@@ -1,0 +1,28 @@
+open, close, read, and write are used for file I/O. These functions allow you to open, close, read from, and write to files.
+malloc and free are used for dynamic memory allocation. malloc allocates memory on the heap (dynamic memory), and free frees memory that was previously allocated with malloc.
+perror is used to print an error message to the standard error output stream (stderr). It is often used in conjunction with system calls that return an error code.
+strerror is used to convert an error code (such as the value of errno) to a human-readable string.
+access is used to check the accessibility of a file. It can check whether a file exists, whether the process has permission to read or write to the file, and other attributes.
+dup and dup2 are used to duplicate file descriptors. They can be used to redirect the standard input, output, and error streams to files or pipes.
+execve is used to execute a program. It replaces the current process with a new program.
+exit is used to exit a process. It terminates the current process and returns a status code to the parent process.
+fork is used to create a new process by duplicating the calling process.
+pipe is used to create a pipe, a unidirectional data channel that can be used for interprocess communication.
+unlink is used to delete a file.
+wait and waitpid are used to wait for a child process to complete. They allow the parent process to wait until the child process has terminated before continuing.
+
+typedef bool				t_bool;
+
+typedef signed char			t_i8;
+typedef unsigned char		t_u8;
+
+typedef signed short		t_i16;
+typedef unsigned short		t_u16;
+
+typedef signed int			t_i32;
+typedef unsigned int		t_u32;
+
+typedef signed long long	t_i64;
+typedef unsigned long long	t_u64;
+
+typedef size_t				t_size;

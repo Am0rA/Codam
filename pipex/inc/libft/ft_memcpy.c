@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex.c                                            :+:    :+:            */
+/*   ft_memcpy.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: itopchu <itopchu@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/31 04:47:08 by itopchu       #+#    #+#                 */
-/*   Updated: 2022/12/31 04:47:08 by itopchu       ########   odam.nl         */
+/*   Created: 2022/10/08 17:01:34 by itopchu       #+#    #+#                 */
+/*   Updated: 2022/10/08 17:01:34 by itopchu       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	pipex(t_data *data)
+void	*ft_memcpy(void *dst, void const *src, size_t n)
 {
-	
+	unsigned char	*s;
+	unsigned char	*d;
+	size_t			i;
+
+	i = 0;
+	s = (unsigned char *)src;
+	d = (unsigned char *)dst;
+	if (s == NULL && d == NULL)
+		return (NULL);
+	while (i < n)
+	{
+		d[i] = s[i];
+		i++;
+		if (n == i)
+			return (d);
+	}
+	return (d);
 }
